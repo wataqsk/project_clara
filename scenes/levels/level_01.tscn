@@ -1,109 +1,122 @@
 [gd_scene format=3 uid="uid://t711ksiggai1"]
 
 [ext_resource type="PackedScene" uid="uid://cb8dmciubuxoe" path="res://scenes/characters/player/player.tscn" id="1_m802k"]
-[ext_resource type="PackedScene" uid="uid://hmwk8m308a1f" path="res://scenes/props/road_turn.tscn" id="3_2djvx"]
-[ext_resource type="PackedScene" uid="uid://ng2n3w1kl12w" path="res://scenes/props/road_long.tscn" id="3_uvc87"]
-[ext_resource type="PackedScene" uid="uid://f2jbxj4g4ilg" path="res://scenes/props/bridges_2.tscn" id="4_qdh5e"]
-[ext_resource type="PackedScene" uid="uid://b151m70q6yl3a" path="res://scenes/props/bridges_stairs.tscn" id="4_uvc87"]
-[ext_resource type="PackedScene" uid="uid://cyim85oqio261" path="res://scenes/props/bridges_3.tscn" id="6_50wog"]
-[ext_resource type="PackedScene" uid="uid://b0knyypwuspqx" path="res://scenes/props/bridges_stairs_2.tscn" id="7_1ey3t"]
-[ext_resource type="PackedScene" uid="uid://b6ykrpierrgsq" path="res://scenes/props/bridges_turn.tscn" id="8_t0hvh"]
-[ext_resource type="PackedScene" uid="uid://bcge6ffadlvlh" path="res://assets/psx_industrial_environment_asset_pack/Building_5.glb" id="9_3g50r"]
-[ext_resource type="PackedScene" uid="uid://ct8oh7edk18ek" path="res://assets/psx_industrial_environment_asset_pack/Building_6.glb" id="10_iu1m7"]
-[ext_resource type="PackedScene" uid="uid://ctnrwx7xwij44" path="res://assets/psx_industrial_environment_asset_pack/Cargo_1_close.glb" id="11_cywot"]
+[ext_resource type="PackedScene" uid="uid://b6ykrpierrgsq" path="res://scenes/props/bridges/bridges_turn.tscn" id="3_1ey3t"]
+[ext_resource type="PackedScene" uid="uid://hmwk8m308a1f" path="res://scenes/props/roads/road_turn.tscn" id="3_2djvx"]
+[ext_resource type="PackedScene" uid="uid://ng2n3w1kl12w" path="res://scenes/props/roads/road_long.tscn" id="3_uvc87"]
+[ext_resource type="PackedScene" uid="uid://c0jo7cav6lk4v" path="res://scenes/props/buildings/building_5.tscn" id="4_qdh5e"]
+[ext_resource type="PackedScene" uid="uid://b151m70q6yl3a" path="res://scenes/props/bridges/bridges_stairs.tscn" id="5_50wog"]
+[ext_resource type="Texture2D" uid="uid://dmr8rn8jap6u3" path="res://assets/tiny_texture_pack_2/512x512/Dirt/Dirt_03-512x512.png" id="6_tyxjt"]
+[ext_resource type="PackedScene" uid="uid://bm0oqcarcwbq0" path="res://scenes/props/bridges/bridges_end.tscn" id="8_kfebt"]
+[ext_resource type="PackedScene" uid="uid://f2jbxj4g4ilg" path="res://scenes/props/bridges/bridges_2.tscn" id="9_r72dd"]
+[ext_resource type="PackedScene" uid="uid://bkcjy0tuwicld" path="res://assets/psx_industrial_environment_asset_pack/Ventilation_1.glb" id="11_tyxjt"]
+[ext_resource type="PackedScene" uid="uid://ccsuvcxb83g2u" path="res://assets/psx_industrial_environment_asset_pack/Wall_corner_1.glb" id="12_07lms"]
 [ext_resource type="PackedScene" uid="uid://d26qtq6ty6bve" path="res://assets/psx_industrial_environment_asset_pack/Cargo_2_full.glb" id="12_vrcmr"]
-[ext_resource type="PackedScene" uid="uid://dqppt1cpbvicp" path="res://assets/psx_industrial_environment_asset_pack/Cargo_2_empty.glb" id="13_svp4f"]
-[ext_resource type="PackedScene" uid="uid://s7rw5kw5c26l" path="res://assets/psx_industrial_environment_asset_pack/Liquid_reservoir_1.glb" id="14_1b0o8"]
-[ext_resource type="PackedScene" uid="uid://cjlfru6yeyh6p" path="res://assets/psx_industrial_environment_asset_pack/Liquid_reservoir_2.glb" id="15_w4kkx"]
-[ext_resource type="PackedScene" uid="uid://bvr2onglo8y20" path="res://assets/psx_industrial_environment_asset_pack/Pipes_vertical_long.glb" id="16_mhiu8"]
-[ext_resource type="PackedScene" uid="uid://bwfsext1l3i2k" path="res://assets/psx_industrial_environment_asset_pack/Pipes_arch.glb" id="17_lswbx"]
-[ext_resource type="PackedScene" uid="uid://d4ck0jwdnms74" path="res://assets/psx_industrial_environment_asset_pack/Pipes_horizontal_long.glb" id="18_uujh0"]
+[ext_resource type="PackedScene" uid="uid://cnwcbka44xru8" path="res://assets/psx_industrial_environment_asset_pack/Wall.glb" id="13_gi8m4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2djvx"]
 size = Vector3(80, 0.2, 80)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2djvx"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50wog"]
-albedo_texture = SubResource("CompressedTexture2D_2djvx")
-uv1_scale = Vector3(100, 100, 100)
+albedo_texture = ExtResource("6_tyxjt")
+uv1_scale = Vector3(200, 200, 200)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2djvx"]
 material = SubResource("StandardMaterial3D_50wog")
 size = Vector3(80, 0.2, 80)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2q6dc"]
-sky_top_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
-sky_horizon_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
-ground_bottom_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
-ground_horizon_color = Color(0.5019608, 0.5019608, 0.5019608, 1)
-ground_curve = 0.0
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iu1m7"]
 
 [sub_resource type="Sky" id="Sky_w7c3h"]
-sky_material = SubResource("ProceduralSkyMaterial_2q6dc")
+sky_material = SubResource("ProceduralSkyMaterial_iu1m7")
 
 [sub_resource type="Environment" id="Environment_2q6dc"]
 background_mode = 2
 sky = SubResource("Sky_w7c3h")
 
-[node name="Main" type="Node3D" unique_id=1636612167]
+[node name="Level01" type="Node3D" unique_id=1636612167]
 
 [node name="World" type="Node3D" parent="." unique_id=678466669]
 
 [node name="Props" type="Node3D" parent="World" unique_id=1220253773]
 
-[node name="BridgesStairs" parent="World/Props" unique_id=210261646 instance=ExtResource("4_uvc87")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+[node name="Buildings" type="Node3D" parent="World/Props" unique_id=510289872]
+
+[node name="Building5" parent="World/Props/Buildings" unique_id=915694736 instance=ExtResource("4_qdh5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="BridgesStairs" parent="World/Props/Buildings" unique_id=210261646 instance=ExtResource("5_50wog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 11)
+
+[node name="Bridges_turn2" parent="World/Props/Buildings" unique_id=1254417247 instance=ExtResource("3_1ey3t")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.43, 3.215, 15.65)
 
 [node name="Road" type="Node3D" parent="World/Props" unique_id=1603796368]
+metadata/_edit_lock_ = true
 
 [node name="RoadLong" parent="World/Props/Road" unique_id=1318203240 instance=ExtResource("3_uvc87")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong2" parent="World/Props/Road" unique_id=1832030216 instance=ExtResource("3_uvc87")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20, 0, -1.7484555e-07)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong3" parent="World/Props/Road" unique_id=1656013039 instance=ExtResource("3_uvc87")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20, 0, 2.7818132e-08)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong4" parent="World/Props/Road" unique_id=1554293526 instance=ExtResource("3_uvc87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.000004, 0, 25)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong5" parent="World/Props/Road" unique_id=1282317800 instance=ExtResource("3_uvc87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.000004, 0, 45)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong6" parent="World/Props/Road" unique_id=2127790540 instance=ExtResource("3_uvc87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.999996, 0, 65.00001)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong7" parent="World/Props/Road" unique_id=169344223 instance=ExtResource("3_uvc87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 25)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong8" parent="World/Props/Road" unique_id=957102304 instance=ExtResource("3_uvc87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 45)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong9" parent="World/Props/Road" unique_id=1922930514 instance=ExtResource("3_uvc87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 65)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong10" parent="World/Props/Road" unique_id=451000909 instance=ExtResource("3_uvc87")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -19.999996, 0, 90.00001)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong11" parent="World/Props/Road" unique_id=242197186 instance=ExtResource("3_uvc87")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 90)
+metadata/_edit_lock_ = true
 
 [node name="RoadLong12" parent="World/Props/Road" unique_id=929390657 instance=ExtResource("3_uvc87")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 20, 0, 90)
+metadata/_edit_lock_ = true
 
 [node name="RoadTurn" parent="World/Props/Road" unique_id=53297675 instance=ExtResource("3_2djvx")]
 transform = Transform3D(1, 0, 7.351371e-08, 0, 1, 0, -7.351371e-08, 0, 1, 39.999996, 0, 4.999997)
+metadata/_edit_lock_ = true
 
 [node name="RoadTurn2" parent="World/Props/Road" unique_id=1407749337 instance=ExtResource("3_2djvx")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -40, 0, 5.0000014)
+metadata/_edit_lock_ = true
 
 [node name="RoadTurn3" parent="World/Props/Road" unique_id=710510550 instance=ExtResource("3_2djvx")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -40, 0, 85)
+metadata/_edit_lock_ = true
 
 [node name="RoadTurn4" parent="World/Props/Road" unique_id=2083182910 instance=ExtResource("3_2djvx")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 40, 0, 85)
+metadata/_edit_lock_ = true
 
 [node name="Floor" type="StaticBody3D" parent="World/Props" unique_id=409800077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
@@ -111,15 +124,11 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Floor" unique_id=594720693]
 shape = SubResource("BoxShape3D_2djvx")
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World/Props/Floor" unique_id=880494751]
 mesh = SubResource("BoxMesh_2djvx")
-
-[node name="Bridges_2" parent="World/Props" unique_id=291880381 instance=ExtResource("4_qdh5e")]
-transform = Transform3D(-0.99999994, 0, -1.1920929e-07, 0, 1, 0, 1.1920929e-07, 0, -0.99999994, 0, 3.125, 20.4)
-
-[node name="Bridges_3" parent="World/Props" unique_id=1371508596 instance=ExtResource("6_50wog")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.7484554e-07, 0, 30)
+metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1117708135]
 transform = Transform3D(-4.371139e-08, -0.5, 0.8660254, 0, 0.8660254, 0.5, -1, 2.1855694e-08, -3.7855173e-08, 0, 10, 0)
@@ -133,44 +142,20 @@ environment = SubResource("Environment_2q6dc")
 [node name="Player" parent="Entities" unique_id=1561012246 instance=ExtResource("1_m802k")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
 
-[node name="BridgesStairs2" parent="." unique_id=300272872 instance=ExtResource("7_1ey3t")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.7484554e-07, 1.575, 35.35)
+[node name="BridgesEnd" parent="." unique_id=1927766105 instance=ExtResource("8_kfebt")]
+transform = Transform3D(-8.940697e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -8.940697e-08, -5.9572434, 3.2932978, 16.19309)
 
-[node name="Bridges_turn2" parent="." unique_id=1254417247 instance=ExtResource("8_t0hvh")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.57048225, 3.210147, 24.487)
-
-[node name="Building_52" parent="." unique_id=915694736 instance=ExtResource("9_3g50r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3538337, 0.22175533, 25.550573)
-
-[node name="Building_62" parent="." unique_id=40618639 instance=ExtResource("10_iu1m7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.377853, 0.3066613, 31.5539)
-
-[node name="Cargo_1_close2" parent="." unique_id=2015306411 instance=ExtResource("11_cywot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.743202, 0.18094438, 17.618702)
+[node name="Bridges_2" parent="." unique_id=291880381 instance=ExtResource("9_r72dd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.688455, 3.1777816, 16.209347)
 
 [node name="Cargo_2_full2" parent="." unique_id=1591839150 instance=ExtResource("12_vrcmr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8166065, 0.14668158, 12.064178)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4.1745753, 0.1466811, 14.729067)
 
-[node name="Cargo_2_full3" parent="." unique_id=1504193490 instance=ExtResource("12_vrcmr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.751356, 0.14668158, 14.289885)
+[node name="Ventilation_12" parent="." unique_id=237444179 instance=ExtResource("11_tyxjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41838932, 3.3474503, 9.077021)
 
-[node name="Cargo_2_empty2" parent="." unique_id=242935017 instance=ExtResource("13_svp4f")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.964169, 0.14668158, 7.5959654)
+[node name="Wall_corner_12" parent="." unique_id=1038975839 instance=ExtResource("12_07lms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.816788, 0.186057, 8.810415)
 
-[node name="Liquid_reservoir_12" parent="." unique_id=301094677 instance=ExtResource("14_1b0o8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4298, 0.17278217, 17.570232)
-
-[node name="Liquid_reservoir_22" parent="." unique_id=274167485 instance=ExtResource("15_w4kkx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4738693, 0.18402961, 16.178535)
-
-[node name="Liquid_reservoir_22" parent="Liquid_reservoir_22" unique_id=755025313 instance=ExtResource("15_w4kkx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4738693, 0.18402961, -0.5359497)
-
-[node name="Pipes_vertical_long2" parent="." unique_id=1535789921 instance=ExtResource("16_mhiu8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4785967, 2.3919573, 40.55286)
-
-[node name="Pipes_arch2" parent="." unique_id=1990936166 instance=ExtResource("17_lswbx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4168892, 0.16312075, 41.324284)
-
-[node name="Pipes_horizontal_long2" parent="." unique_id=2022924248 instance=ExtResource("18_uujh0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043807507, 0.17347845, 42.467888)
+[node name="Wall2" parent="." unique_id=996789900 instance=ExtResource("13_gi8m4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.729021, 0.18605706, 11.894282)

@@ -2,6 +2,7 @@
 # TO-DO: Add jump cooldown.
 # TO-DO: Remove hardcoded walking-down speed and walking-up-ramps speed.
 # TO-DO: Tilt character sprite when walking up and down ramps.
+# TO-DO: Find a way to handle stairs. Maybe: 2-raycast method or a plugin.
 class_name Player extends CharacterBody3D
 
 @export_category("Camera")

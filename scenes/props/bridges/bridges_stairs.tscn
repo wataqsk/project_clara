@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b151m70q6yl3a"]
+
+[ext_resource type="PackedScene" uid="uid://df2dj6hbx8jyo" path="res://assets/psx_industrial_environment_asset_pack/Bridges_stairs_1.glb" id="1_vokxk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vokxk"]
+size = Vector3(2.1, 0.2, 5.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kb1o2"]
+size = Vector3(2, 0.18, 1.656)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8xhso"]
+size = Vector3(0.1, 0.649, 5.424)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o3s7e"]
+size = Vector3(0.1, 0.652, 1.876)
+
+[node name="BridgesStairs" unique_id=210261646 instance=ExtResource("1_vokxk")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Bridges_stairs_1" parent_id_path=PackedInt32Array(1564939394) index="0" unique_id=292282277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0908802, 0.12763262)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bridges_stairs_1/StaticBody3D" index="0" unique_id=609722970]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, -0.00015258789, -0.49390614, -0.64755154)
+shape = SubResource("BoxShape3D_vokxk")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="CollisionShape3D_2" type="CollisionShape3D" parent="Bridges_stairs_1/StaticBody3D" index="1" unique_id=189564516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1543086, 2.1084998)
+shape = SubResource("BoxShape3D_kb1o2")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="CollisionShape3D_3" type="CollisionShape3D" parent="Bridges_stairs_1/StaticBody3D" index="2" unique_id=1974535918]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 1, -0.08897495, -0.8178287)
+shape = SubResource("BoxShape3D_8xhso")
+debug_color = Color(1, 1, 0, 0.41960785)
+
+[node name="CollisionShape3D_4" type="CollisionShape3D" parent="Bridges_stairs_1/StaticBody3D" index="3" unique_id=1753024866]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, -1, -0.08897495, -0.8178287)
+shape = SubResource("BoxShape3D_8xhso")
+debug_color = Color(1, 1, 0, 0.41960785)
+
+[node name="CollisionShape3D_5" type="CollisionShape3D" parent="Bridges_stairs_1/StaticBody3D" index="4" unique_id=628496041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99965405, 1.5803151, 1.993577)
+shape = SubResource("BoxShape3D_o3s7e")
+debug_color = Color(1, 1, 0, 0.41960785)
+
+[node name="CollisionShape3D_6" type="CollisionShape3D" parent="Bridges_stairs_1/StaticBody3D" index="5" unique_id=1942917150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0006919, 1.5887201, 1.987154)
+shape = SubResource("BoxShape3D_o3s7e")
+debug_color = Color(1, 1, 0, 0.41960785)
