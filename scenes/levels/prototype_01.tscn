@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ca5scm6kejoy5"]
+
+[ext_resource type="PackedScene" uid="uid://cb8dmciubuxoe" path="res://scenes/characters/player/player.tscn" id="1_a0jwt"]
+[ext_resource type="Texture2D" uid="uid://dcseh61efqe07" path="res://assets/prototype_textures/PNG/Light/texture_08.png" id="2_73ebo"]
+[ext_resource type="PackedScene" uid="uid://dw7xvns0wdjgt" path="res://scenes/props/pipe.tscn" id="3_73ebo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n2trt"]
+size = Vector3(80, 0.01, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0jwt"]
+albedo_texture = ExtResource("2_73ebo")
+uv1_scale = Vector3(80, 80, 80)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wqw67"]
+material = SubResource("StandardMaterial3D_a0jwt")
+size = Vector2(80, 80)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a0jwt"]
+
+[sub_resource type="Sky" id="Sky_w7c3h"]
+sky_material = SubResource("ProceduralSkyMaterial_a0jwt")
+
+[sub_resource type="Environment" id="Environment_q5ged"]
+background_mode = 2
+sky = SubResource("Sky_w7c3h")
+
+[node name="Prototype01" type="Node3D" unique_id=875305765]
+
+[node name="World" type="Node3D" parent="." unique_id=371854366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.401458, 3.2180953, -3.3098645)
+
+[node name="Props" type="Node3D" parent="World" unique_id=1322866545]
+
+[node name="Pipe" parent="World/Props" unique_id=1003051736 instance=ExtResource("3_73ebo")]
+transform = Transform3D(0.4, 0, 0, 0, -1.7484556e-08, 0.3, 0, -0.4, -1.3113417e-08, -7.401458, -2.4180954, 4.1098647)
+
+[node name="Floor" type="StaticBody3D" parent="World/Props" unique_id=997435961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.401458, -3.2180953, 3.3098645)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Floor" unique_id=1921601429]
+shape = SubResource("BoxShape3D_n2trt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Props/Floor" unique_id=372260011]
+mesh = SubResource("PlaneMesh_wqw67")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=712538535]
+transform = Transform3D(-4.371139e-08, -0.5, 0.8660254, 0, 0.8660254, 0.5, -1, 2.1855694e-08, -3.7855173e-08, 0, 10, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=808178326]
+environment = SubResource("Environment_q5ged")
+
+[node name="Entities" type="Node3D" parent="." unique_id=1377992757]
+
+[node name="Player" parent="Entities" unique_id=1561012246 instance=ExtResource("1_a0jwt")]
