@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cpg8cjho5elqa" path="res://scenes/characters/player/mannequin.tscn" id="2_3eadt"]
 [ext_resource type="AnimationLibrary" uid="uid://chbgh3gmtasfr" path="res://assets/universal_animation_library/UAL1_Standard.glb" id="3_hss88"]
 [ext_resource type="AnimationLibrary" uid="uid://nxeox70eeh8m" path="res://assets/universal_animation_library/UAL2_Standard.glb" id="4_qd3e3"]
+[ext_resource type="PackedScene" uid="uid://bvn5lpjnoucn7" path="res://scenes/characters/player/interaction_controller.tscn" id="5_djydg"]
 [ext_resource type="Script" uid="uid://cc4l42oehaxov" path="res://scenes/characters/player/state_machine.gd" id="5_qd3e3"]
 [ext_resource type="Script" uid="uid://6nyojw1ucr7b" path="res://scenes/characters/player/states/idle.gd" id="6_xuses"]
 [ext_resource type="Script" uid="uid://dnfqwkpb18sqm" path="res://scenes/characters/player/states/walking.gd" id="7_mk55u"]
@@ -15,7 +16,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3eadt"]
 radius = 0.25
-height = 1.75
+height = 1.8
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hss88"]
 animation = &"UAL1_Standard/Jump"
@@ -103,11 +104,23 @@ node_connections = [&"output", 0, &"Movement"]
 script = ExtResource("1_x0jl3")
 camera_pitch_min = -80.0
 camera_pitch_max = 80.0
-move_speed = 5.0
+move_speed = 4.0
+acceleration = 10.0
+jump_velocity = 9.0
+fall_multiplier = 3.0
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1457932589]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.9659256, -0.25881895, 0, 0.25881895, 0.9659256, 0, 1.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+
+[node name="InteractionRaycast" type="RayCast3D" parent="CameraPivot" unique_id=1651466004]
+unique_name_in_owner = true
+transform = Transform3D(-5, 0, 8.742278e-08, 0, 5, 0, -4.371139e-07, 0, -1, 0, 0, 0)
+target_position = Vector3(0, 0, -2)
+
+[node name="InteractionHand" type="Marker3D" parent="CameraPivot" unique_id=181113397]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=932079272]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
@@ -119,7 +132,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=596558967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8854805, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9074532, 0)
 shape = SubResource("CapsuleShape3D_3eadt")
 
 [node name="Mannequin" parent="." unique_id=1310423835 instance=ExtResource("2_3eadt")]
@@ -134,6 +147,9 @@ root_node = NodePath("%Mannequin")
 tree_root = SubResource("AnimationNodeBlendTree_x0jl3")
 anim_player = NodePath("../Mannequin/AnimationPlayer")
 parameters/Movement/Walking/blend_position = Vector2(-1.2226365, 1.701673)
+
+[node name="InteractionController" parent="." unique_id=1024412204 instance=ExtResource("5_djydg")]
+unique_name_in_owner = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=757438713 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_qd3e3")

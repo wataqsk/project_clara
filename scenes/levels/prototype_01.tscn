@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cb8dmciubuxoe" path="res://scenes/characters/player/player.tscn" id="1_a0jwt"]
 [ext_resource type="Texture2D" uid="uid://dcseh61efqe07" path="res://assets/prototype_textures/PNG/Light/texture_08.png" id="2_73ebo"]
-[ext_resource type="PackedScene" uid="uid://dw7xvns0wdjgt" path="res://scenes/props/pipe.tscn" id="3_73ebo"]
+[ext_resource type="Texture2D" uid="uid://k2512kg6p3sj" path="res://assets/prototype_textures/PNG/Orange/texture_02.png" id="2_exorh"]
+[ext_resource type="PackedScene" uid="uid://djq2lt0bamogu" path="res://scenes/interactables/cube_1kg.tscn" id="3_53s04"]
+[ext_resource type="PackedScene" uid="uid://cfrrr1t87qxfh" path="res://scenes/interactables/cube_5kg.tscn" id="4_53s04"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n2trt"]
 size = Vector3(80, 0.01, 80)
@@ -14,6 +16,17 @@ uv1_scale = Vector3(80, 80, 80)
 [sub_resource type="PlaneMesh" id="PlaneMesh_wqw67"]
 material = SubResource("StandardMaterial3D_a0jwt")
 size = Vector2(80, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_snwrg"]
+albedo_texture = ExtResource("2_exorh")
+uv1_scale = Vector3(25, 25, 25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_n2trt"]
+material = SubResource("StandardMaterial3D_snwrg")
+size = Vector3(5, 2.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wqw67"]
+size = Vector3(5, 2.5, 0.25)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a0jwt"]
 
@@ -27,24 +40,31 @@ sky = SubResource("Sky_w7c3h")
 [node name="Prototype01" type="Node3D" unique_id=875305765]
 
 [node name="World" type="Node3D" parent="." unique_id=371854366]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.401458, 3.2180953, -3.3098645)
+metadata/_edit_lock_ = true
 
-[node name="Props" type="Node3D" parent="World" unique_id=1322866545]
+[node name="Floor" type="StaticBody3D" parent="World" unique_id=997435961]
+metadata/_edit_lock_ = true
 
-[node name="Pipe" parent="World/Props" unique_id=1003051736 instance=ExtResource("3_73ebo")]
-transform = Transform3D(0.4, 0, 0, 0, -1.7484556e-08, 0.3, 0, -0.4, -1.3113417e-08, -7.401458, -2.4180954, 4.1098647)
-
-[node name="Floor" type="StaticBody3D" parent="World/Props" unique_id=997435961]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.401458, -3.2180953, 3.3098645)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Props/Floor" unique_id=1921601429]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor" unique_id=1921601429]
 shape = SubResource("BoxShape3D_n2trt")
+metadata/_edit_lock_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Props/Floor" unique_id=372260011]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Floor" unique_id=372260011]
 mesh = SubResource("PlaneMesh_wqw67")
+metadata/_edit_lock_ = true
+
+[node name="Wall" type="StaticBody3D" parent="World" unique_id=1722944346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Wall" unique_id=456915122]
+mesh = SubResource("BoxMesh_n2trt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Wall" unique_id=1062365151]
+shape = SubResource("BoxShape3D_wqw67")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=712538535]
 transform = Transform3D(-4.371139e-08, -0.5, 0.8660254, 0, 0.8660254, 0.5, -1, 2.1855694e-08, -3.7855173e-08, 0, 10, 0)
+metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=808178326]
 environment = SubResource("Environment_q5ged")
@@ -52,3 +72,11 @@ environment = SubResource("Environment_q5ged")
 [node name="Entities" type="Node3D" parent="." unique_id=1377992757]
 
 [node name="Player" parent="Entities" unique_id=1561012246 instance=ExtResource("1_a0jwt")]
+
+[node name="Objects" type="Node3D" parent="." unique_id=1514522832]
+
+[node name="Cube_1kg" parent="Objects" unique_id=1173868924 instance=ExtResource("3_53s04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 4)
+
+[node name="Cube_5kg" parent="Objects" unique_id=1210195085 instance=ExtResource("4_53s04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 4)
