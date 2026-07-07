@@ -30,3 +30,10 @@ func _physics_process(_delta: float) -> void:
 				if Input.is_action_pressed("left_click"):
 					current_object = potential_object
 					interaction_component.preInteract(interaction_hand)
+
+					if interaction_component.interaction_type == interaction_component.InteractionType.ITEM:
+						interaction_component.connect("item_collected", Callable(self, "_on_item_collected"))
+
+func _on_item_collected(item: Node):
+	# INVENTORY SYSTEM
+	print("Player Collected: ", item)

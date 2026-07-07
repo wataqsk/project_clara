@@ -1,7 +1,8 @@
 extends Node
 
 enum InteractionType {
-	DEFAULT
+	DEFAULT,
+	ITEM
 }
 
 @export var object_ref: Node3D
@@ -13,6 +14,9 @@ enum InteractionType {
 var can_interact: bool = true
 var is_interacting: bool = false
 var player_hand: Marker3D
+
+# Signals
+signal item_collected(item: Node)
 
 func preInteract(interaction_hand: Marker3D) -> void:
 	is_interacting = true
@@ -26,6 +30,8 @@ func interact() -> void:
 	match interaction_type:
 		InteractionType.DEFAULT:
 			_default_interact()
+		InteractionType.ITEM:
+			_collect_item()
 
 func auxInteract() -> void:
 	if not can_interact:
@@ -60,3 +66,7 @@ func _default_throw() -> void:
 		can_interact = false
 		await get_tree().create_timer(throw_cooldown).timeout
 		can_interact = true
+		
+func _collect_item() -> void:
+	emit_signal("item_collected", get_parent())
+	get_parent().queue_free()

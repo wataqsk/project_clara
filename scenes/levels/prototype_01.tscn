@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://k2512kg6p3sj" path="res://assets/prototype_textures/PNG/Orange/texture_02.png" id="2_exorh"]
 [ext_resource type="PackedScene" uid="uid://djq2lt0bamogu" path="res://scenes/interactables/cube_1kg.tscn" id="3_53s04"]
 [ext_resource type="PackedScene" uid="uid://cfrrr1t87qxfh" path="res://scenes/interactables/cube_5kg.tscn" id="4_53s04"]
+[ext_resource type="PackedScene" uid="uid://dsomuu8s5orea" path="res://scenes/interactables/pipe.tscn" id="6_snwrg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n2trt"]
 size = Vector3(80, 0.01, 80)
@@ -80,3 +81,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 4)
 
 [node name="Cube_5kg" parent="Objects" unique_id=1210195085 instance=ExtResource("4_53s04")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 4)
+
+[node name="Pipe" parent="Objects" unique_id=954526869 instance=ExtResource("6_snwrg")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 1.9349613, 1.5500001, 4.0471745)
