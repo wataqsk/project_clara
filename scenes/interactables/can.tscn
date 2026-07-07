@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ycbfmkrcw2yi"]
+
+[ext_resource type="Texture2D" uid="uid://ovkhdl1dqjkg" path="res://assets/prototype_textures/PNG/Green/texture_03.png" id="1_hp2oo"]
+[ext_resource type="PackedScene" uid="uid://cwr5j8463foul" path="res://scenes/interactables/interaction_component.tscn" id="2_e8up3"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n2trt"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cpf4e"]
+albedo_texture = ExtResource("1_hp2oo")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wqw67"]
+height = 0.3
+radius = 0.1
+
+[node name="Can" type="RigidBody3D" unique_id=1733740287]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1447369938]
+mesh = SubResource("CylinderMesh_n2trt")
+surface_material_override/0 = SubResource("StandardMaterial3D_cpf4e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=887346337]
+shape = SubResource("CylinderShape3D_wqw67")
+
+[node name="InteractionComponent" parent="." unique_id=1577849604 node_paths=PackedStringArray("object_ref") instance=ExtResource("2_e8up3")]
+object_ref = NodePath("..")
+interaction_type = 1

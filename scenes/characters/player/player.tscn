@@ -18,6 +18,9 @@
 radius = 0.25
 height = 1.8
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_n2trt"]
+radius = 4.0
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hss88"]
 animation = &"UAL1_Standard/Jump"
 
@@ -115,7 +118,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 
 [node name="InteractionRaycast" type="RayCast3D" parent="CameraPivot" unique_id=1651466004]
 unique_name_in_owner = true
-transform = Transform3D(-5, 0, 8.742278e-08, 0, 5, 0, -4.371139e-07, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0, 0)
 target_position = Vector3(0, 0, -2)
 
 [node name="InteractionHand" type="Marker3D" parent="CameraPivot" unique_id=181113397]
@@ -133,6 +136,11 @@ unique_name_in_owner = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=596558967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9074532, 0)
 shape = SubResource("CapsuleShape3D_3eadt")
+
+[node name="InteractableCheck" type="Area3D" parent="." unique_id=30100189]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableCheck" unique_id=1910716686]
+shape = SubResource("SphereShape3D_n2trt")
 
 [node name="Mannequin" parent="." unique_id=1310423835 instance=ExtResource("2_3eadt")]
 unique_name_in_owner = true
