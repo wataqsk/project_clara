@@ -105,12 +105,6 @@ node_connections = [&"output", 0, &"Movement"]
 
 [node name="Player" type="CharacterBody3D" unique_id=1561012246]
 script = ExtResource("1_x0jl3")
-camera_pitch_min = -80.0
-camera_pitch_max = 80.0
-move_speed = 4.0
-acceleration = 10.0
-jump_velocity = 9.0
-fall_multiplier = 3.0
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1457932589]
 unique_name_in_owner = true

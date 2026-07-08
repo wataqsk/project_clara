@@ -1,61 +1,61 @@
 # TO-DO: Add input buffering.
-# TO-DO: Add jump cooldown.
 # TO-DO: Remove hardcoded walking-down speed and walking-up-ramps speed.
 # TO-DO: Tilt character sprite when walking up and down ramps.
 # TO-DO: Find a way to handle stairs. Maybe: 2-raycast method or a plugin.
-class_name Player extends CharacterBody3D
+class_name Player 
+extends CharacterBody3D
 
 @export_category("Camera")
 @export_group("Camera Sensitivity")
 ## How sensitive the camera is to mouse movement.
-@export_range(0.0, 1.0, 0.05, "suffix:x") var camera_sensitivity: float = 0.25
+@export_range(0.0, 1.0, 0.05) var camera_sensitivity:float = 0.25
 
 @export_group("Camera Pitch")
 ## Maximum downward angle the camera can look.
-@export_range(-90.0, 0.0, 5.0, "suffix:°") var camera_pitch_min : float = -30.0
+@export_range(-90.0, 0.0, 5.0, "suffix:°") var camera_pitch_min:float = -80.0
 ## Maximum upward angle the camera can look.
-@export_range(0.0, 90.0, 5.0, "suffix:°") var camera_pitch_max : float = 60.0
+@export_range(0.0, 90.0, 5.0, "suffix:°") var camera_pitch_max:float = 80.0
 
 
 @export_category("Movement")
 @export_group("Character Speed")
 ## How fast the character can move.
-@export_range(0.0, 20.0, 0.5, "suffix:m/s") var move_speed : float = 8.0
-## Acceleration controls how quickly the character reaches move_speed.
-## Instead of hitting full speed in one frame, it ramps up smoothly.
-## For example, the character reaches full speed in 0.4 seconds (8.0 / 20.0).
-@export_range(0.0, 40.0, 0.5, "suffix:m/s²") var acceleration : float = 20.0
-## Velocity threshold below which the character snaps to a stop.
-@export_range(0.0, 2.0, 0.01, "suffix:m/s") var stopping_speed : float = 1.0
+@export_range(0.0, 20.0, 0.5, "suffix:m/s") var move_speed:float = 4.0
+## How quickly the character reaches maximum speed.
+@export_exp_easing("positive_only") var acceleration:float = 10.0
 
 @export_group("Character Jump")
 ## How fast the character launches upward when jumping.
-@export_range(0.0, 25.0, 0.5, "suffix:m/s") var jump_velocity : float = 12.0
-## Short period after walking off a ledge where the player can still jump.
-@export_range(0.0, 0.2, 0.01, "suffix:s") var coyote_time : float = 0.1
+@export_range(0.0, 25.0, 0.5, "suffix:m/s") var jump_velocity:float = 9.0
 
-@export_group("Character Skin")
+## How long the jump input is remembered before landing.
+@export_range(0.0, 0.5, 0.05, "suffix:s") var jump_buffer_time: float = 0.15
+
+## The short period where the player can still jump after walking off a ledge.
+@export_range(0.0, 0.2, 0.01, "suffix:s") var coyote_time:float = 0.1
+
+@export_group("Character Model")
 ## How fast the character model rotates to face the movement direction.
-@export_range(1.0, 20.0, 0.5, "suffix:°/s") var rotation_speed : float = 8.0
+@export_range(1.0, 20.0, 0.5, "suffix:°/s") var rotation_speed:float = 8.0
 
 @export_group("Character Gravity")
 ## Multiplies character's gravity while falling.
-@export_range(1.0, 10.0, 0.5, "suffix:x") var fall_multiplier: float = 4.0
+@export_range(1.0, 10.0, 0.5, "suffix:x") var fall_multiplier: float = 3.0
+
+var _camera_input_direction: Vector2 = Vector2.ZERO
+# move_direction must be public because state_machine reads it.
+var move_direction:Vector3 = Vector3.ZERO
+var _last_move_direction:Vector3 = Vector3.BACK
+var _is_jumping:bool = false
+var _was_on_floor:bool = false
+var _jump_buffer_timer:float = 0.0
+var _coyote_timer:float = 0.0
+var gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
+var state_machine:AnimationNodeStateMachinePlayback
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
 @onready var _skin: Node3D = %Mannequin
-
-var _camera_input_direction: Vector2 = Vector2.ZERO
-# move_direction must be public because state_machine reads it.
-# I couldn't find a way to work around this.
-var move_direction: Vector3 = Vector3.ZERO
-var _last_move_direction: Vector3 = Vector3.BACK
-var _is_jumping: bool = false
-var _was_on_floor: bool = false
-var _coyote_timer: float = 0.0
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var state_machine: AnimationNodeStateMachinePlayback
 
 func _ready() -> void:
 	state_machine = $AnimationTree.get("parameters/Movement/playback") as AnimationNodeStateMachinePlayback
@@ -77,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	_update_camera(delta)
 	_update_movement(delta)
 	_update_coyote_time(delta)
-	_update_jump()
+	_update_jump(delta)
 	_update_gravity(delta)
 	move_and_slide()
 	_update_debug()
@@ -109,13 +109,20 @@ func _update_coyote_time(delta: float) -> void:
 
 	_was_on_floor = is_on_floor()
 
-func _update_jump() -> void:
+func _update_jump(delta: float) -> void:
+	if Input.is_action_just_pressed("jump"):
+		_jump_buffer_timer = jump_buffer_time
+
+	if _jump_buffer_timer > 0.0:
+		_jump_buffer_timer -= delta
+
 	var can_jump := is_on_floor() or _coyote_timer > 0.0
-	
-	if Input.is_action_just_pressed("jump") and can_jump:
+
+	if _jump_buffer_timer > 0.0 and can_jump:
 		velocity.y = jump_velocity
 		_is_jumping = true
 		_coyote_timer = 0.0
+		_jump_buffer_timer = 0.0
 
 	# Landing check merged here for simplicity.
 	# If landing logic grows, move it to its own method again.
@@ -141,14 +148,8 @@ func _update_movement(delta: float) -> void:
 	# BACK (-Z) is Godot's default model forward
 	# Change to FORWARD if skin was imported facing +Z
 	var target_angle := Vector3.BACK.signed_angle_to(_last_move_direction, Vector3.UP)
-	# lerp_angle is better than lerp for some magical reason...
 	_skin.rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
- 
-	# This was causing the falling slowly problem.
-	# Only the horizontal axis must be zero.
-	if is_equal_approx(move_direction.length_squared(), 0.0) and velocity.length_squared() < stopping_speed:
-		velocity.x = 0.0
-		velocity.z = 0.0
+	
 
 func _update_debug() -> void:
 	DebugDraw2D.set_text("FPS", Engine.get_frames_per_second())
