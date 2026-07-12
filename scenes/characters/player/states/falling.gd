@@ -1,8 +1,10 @@
 extends PlayerState
 
-func enter(_previous_state_path: String, _data := {}) -> void:
-	player.state_machine.travel(PlayerState.FALLING)
+@export var landing: State
 
-func physics_update(_delta: float) -> void:
-	if player.is_on_floor():
-		finished.emit(PlayerState.LANDING)
+func enter(_previous_state: State) -> void:
+	player.state_machine.travel("Falling")
+
+func physics_process(_delta: float) -> void:
+	if player.is_on_floor() and not player.is_jumping:
+		state_machine.transition_to(landing)

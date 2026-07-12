@@ -1,10 +1,15 @@
 extends PlayerState
 
-func enter(_previous_state_path: String, _data := {}) -> void:
-	player.state_machine.travel(PlayerState.LANDING)
+@export var idle: State
+@export var walking: State
 
-func physics_update(_delta: float) -> void:
+func enter(_previous_state: State) -> void:
+	player.state_machine.travel("Landing")
+
+func physics_process(_delta: float) -> void:
 	if player.move_direction.length_squared() > 0.0:
-		finished.emit(PlayerState.WALKING)
-	elif player.move_direction.length_squared() == 0.0:
-		finished.emit(PlayerState.IDLE)
+		state_machine.transition_to(walking)
+		return
+	if player.move_direction.length_squared() == 0.0:
+		state_machine.transition_to(idle)
+		return

@@ -1,52 +1,44 @@
-# This script holds reference to whichever state is currently active.
-# It listens to every state's signal and performs the swap when one fires.
-# States never talk to each other, they only talk to StateMachine through that signal.
+class_name StateMachine
+extends Node
 
-class_name StateMachine extends Node
+## The state to start in. Drag a child state node into this slot in the Inspector.
+@export var initial_state: State
 
-# Lets pick the starting state directly in the Inspector.
-@export var initial_state: State = null
+var current_state: State
 
-# Holds the exported choice as the current active state from frame one.
-# If no child node selected, it holds the first child node instead.
-@onready var state: State = (func get_initial_state() -> State:
-	return initial_state if initial_state != null else get_child(0)
-).call()
-
-
-# Scans all State classes and connects their finished signals.
-# Adding a new state node to the tree gets it wired automatically.
 func _ready() -> void:
-	for state_node: State in find_children("*", "State"):
-		state_node.finished.connect(_transition_to_next_state)
+	# Inject parent and self into every state so they don't need to fetch them manually.
+	# This is why State.gd can't use @onready. References come from here, not the scene tree.
+	var parent_node: Node = get_parent()
+	for child: Node in get_children():
+		if child is State:
+			child.parent = parent_node
+			child.state_machine = self
 
-	# Pauses until the Player node is fully ready.
-	# Without the await, It might cause null errors.
+	# Wait and boot into the initial state.
+	# enter(null) signals there's no previous state on the first frame.
 	await owner.ready
-	state.enter("")
+	if initial_state:
+		current_state = initial_state
+		current_state.enter(null)
 
-# Forwards input only to the active state.
-func _unhandled_input(event: InputEvent) -> void:
-	state.handle_input(event)
-	
 func _process(delta: float) -> void:
-	state.update(delta)
-	
+	if current_state:
+		current_state.process(delta)
+
 func _physics_process(delta: float) -> void:
-	state.physics_update(delta)
-	DebugDraw2D.set_text("State", state.name)
+	if current_state:
+		current_state.physics_process(delta)
+		DebugDraw2D.set_text("State", current_state.name)
 
-
-func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
-	#  Prints an error and aborts if the state doesn't exist as a child.
-	if not has_node(target_state_path):
-		printerr(owner.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
+## Called by states to request a transition. States never swap themselves directly.
+## Passing the previous state lets the new state react to where it came from.
+func transition_to(target_state: State) -> void:
+	# Ignore redundant transitions to the same state.
+	if target_state == current_state:
 		return
 
-	# Saves the current state's name before switching.
-	# Clean up the current state before switch.
-	# Swaps the reference and activates the new state.
-	var previous_state_path := state.name
-	state.exit()
-	state = get_node(target_state_path)
-	state.enter(previous_state_path, data)
+	var previous := current_state
+	current_state.exit()
+	current_state = target_state
+	current_state.enter(previous)

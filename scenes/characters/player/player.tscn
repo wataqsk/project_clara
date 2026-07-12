@@ -59,27 +59,32 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_6t23p")
 blend_point_3/pos = Vector2(0, -1)
 blend_point_3/name = &"3"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xnwo"]
-xfade_time = 0.5
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_djydg"]
-xfade_time = 0.5
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bsn6e"]
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_blysn"]
-xfade_time = 0.5
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hv5x3"]
-xfade_time = 0.5
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ykrpk"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4kqyw"]
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i1nod"]
-xfade_time = 0.5
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_svuau"]
-xfade_time = 0.5
+xfade_time = 0.02
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ro20i"]
+xfade_time = 0.2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_x0jl3"]
 states/End/position = Vector2(890.6163, 98.91891)
@@ -90,14 +95,14 @@ states/Idle/position = Vector2(342.89505, 99.50227)
 states/Jumping/node = SubResource("AnimationNodeAnimation_6avc5")
 states/Jumping/position = Vector2(465.04007, 98.91903)
 states/Landing/node = SubResource("AnimationNodeAnimation_qd3e3")
-states/Landing/position = Vector2(597.99615, 209.28033)
+states/Landing/position = Vector2(597.56177, 209.99664)
 states/Walking/node = SubResource("AnimationNodeBlendSpace2D_n8jd0")
 states/Walking/position = Vector2(342.78656, 209.48058)
-transitions = ["Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_3xnwo"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_djydg"), "Idle", "Jumping", SubResource("AnimationNodeStateMachineTransition_bsn6e"), "Jumping", "Falling", SubResource("AnimationNodeStateMachineTransition_blysn"), "Falling", "Landing", SubResource("AnimationNodeStateMachineTransition_hv5x3"), "Walking", "Jumping", SubResource("AnimationNodeStateMachineTransition_ykrpk"), "Landing", "Idle", SubResource("AnimationNodeStateMachineTransition_i1nod"), "Landing", "Walking", SubResource("AnimationNodeStateMachineTransition_svuau")]
-graph_offset = Vector2(-36.94214, -12.792969)
+transitions = ["Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_djydg"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_bsn6e"), "Idle", "Jumping", SubResource("AnimationNodeStateMachineTransition_blysn"), "Jumping", "Falling", SubResource("AnimationNodeStateMachineTransition_hv5x3"), "Falling", "Landing", SubResource("AnimationNodeStateMachineTransition_ykrpk"), "Landing", "Walking", SubResource("AnimationNodeStateMachineTransition_4kqyw"), "Landing", "Idle", SubResource("AnimationNodeStateMachineTransition_i1nod"), "Landing", "Jumping", SubResource("AnimationNodeStateMachineTransition_svuau"), "Walking", "Jumping", SubResource("AnimationNodeStateMachineTransition_ro20i")]
+graph_offset = Vector2(-182.94214, 24.207031)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x0jl3"]
-graph_offset = Vector2(-332.22223, 93.333336)
+graph_offset = Vector2(-269.65225, -41.506535)
 nodes/output/position = Vector2(266.6667, 377.7778)
 nodes/Movement/node = SubResource("AnimationNodeStateMachine_x0jl3")
 nodes/Movement/position = Vector2(-133.33334, 155.55556)
@@ -156,17 +161,27 @@ unique_name_in_owner = true
 script = ExtResource("5_qd3e3")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=423930728]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=423930728 node_paths=PackedStringArray("walking", "jumping", "falling")]
 script = ExtResource("6_xuses")
+walking = NodePath("../Walking")
+jumping = NodePath("../Jumping")
+falling = NodePath("../Falling")
 
-[node name="Walking" type="Node" parent="StateMachine" unique_id=1133842098]
+[node name="Walking" type="Node" parent="StateMachine" unique_id=1133842098 node_paths=PackedStringArray("idle", "jumping", "falling")]
 script = ExtResource("7_mk55u")
+idle = NodePath("../Idle")
+jumping = NodePath("../Jumping")
+falling = NodePath("../Falling")
 
-[node name="Jumping" type="Node" parent="StateMachine" unique_id=1011075491]
+[node name="Jumping" type="Node" parent="StateMachine" unique_id=1011075491 node_paths=PackedStringArray("falling")]
 script = ExtResource("8_3xnwo")
+falling = NodePath("../Falling")
 
-[node name="Falling" type="Node" parent="StateMachine" unique_id=1499690302]
+[node name="Falling" type="Node" parent="StateMachine" unique_id=1499690302 node_paths=PackedStringArray("landing")]
 script = ExtResource("9_42irl")
+landing = NodePath("../Landing")
 
-[node name="Landing" type="Node" parent="StateMachine" unique_id=428116971]
+[node name="Landing" type="Node" parent="StateMachine" unique_id=1346316318 node_paths=PackedStringArray("idle", "walking")]
 script = ExtResource("10_3xnwo")
+idle = NodePath("../Idle")
+walking = NodePath("../Walking")

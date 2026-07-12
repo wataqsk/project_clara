@@ -1,17 +1,15 @@
-# This script exists to avoid repeating the same boilerplate in every state script.
-# Boilerplate = A code you have to write repeatedly across multiple files that is always the same
+# Middle layer between State and every concrete player state (Idle, Walking, etc.).
+# Exists to avoid repeating the same boilerplate in every state file.
+class_name PlayerState 
+extends State
 
-class_name PlayerState extends State
-
-const IDLE    = "Idle"
-const WALKING = "Walking"
-const JUMPING = "Jumping"
-const FALLING = "Falling"
-const LANDING = "Landing"
-
+# Typed reference to the Player node, cleaner than casting parent every time.
 var player: Player
 
 func _ready() -> void:
+	# Player scene may not be fully initialized when child nodes fire _ready().
+	# Waiting ensures player is never null on the first frame.
 	await owner.ready
 	player = owner as Player
-	assert(player != null, "The PlayerState state type must be used only in the player scene. It needs the owner to be a Player node.")
+	# If this state is used outside the Player scene, fail immediately with a clear message
+	assert(player != null, "PlayerState must be used inside the Player scene.")

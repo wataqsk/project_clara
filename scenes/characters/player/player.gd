@@ -43,10 +43,9 @@ extends CharacterBody3D
 @export_range(1.0, 10.0, 0.5, "suffix:x") var fall_multiplier: float = 3.0
 
 var _camera_input_direction: Vector2 = Vector2.ZERO
-# move_direction must be public because state_machine reads it.
 var move_direction:Vector3 = Vector3.ZERO
 var _last_move_direction:Vector3 = Vector3.BACK
-var _is_jumping:bool = false
+var is_jumping:bool = false
 var _was_on_floor:bool = false
 var _jump_buffer_timer:float = 0.0
 var _coyote_timer:float = 0.0
@@ -120,14 +119,14 @@ func _update_jump(delta: float) -> void:
 
 	if _jump_buffer_timer > 0.0 and can_jump:
 		velocity.y = jump_velocity
-		_is_jumping = true
+		is_jumping = true
 		_coyote_timer = 0.0
 		_jump_buffer_timer = 0.0
 
 	# Landing check merged here for simplicity.
 	# If landing logic grows, move it to its own method again.
-	if is_on_floor() and _is_jumping:
-		_is_jumping = false
+	if is_on_floor() and is_jumping:
+		is_jumping = false
 
 func _update_movement(delta: float) -> void:
 	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
