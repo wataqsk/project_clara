@@ -1,5 +1,3 @@
-# TO-DO: Add input buffering.
-# TO-DO: Adjust character's tilt when walking up and down ramps.
 class_name Player 
 extends CharacterBody3D
 
@@ -41,14 +39,16 @@ extends CharacterBody3D
 @export_range(1.0, 10.0, 0.5, "suffix:x") var fall_multiplier: float = 3.0
 
 var _camera_input_direction: Vector2 = Vector2.ZERO
-var move_direction:Vector3 = Vector3.ZERO
-var _last_move_direction:Vector3 = Vector3.BACK
-var is_jumping:bool = false
-var _was_on_floor:bool = false
-var _jump_buffer_timer:float = 0.0
-var _coyote_timer:float = 0.0
-var gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var state_machine:AnimationNodeStateMachinePlayback
+## Current movement direction, read by state machine.
+var move_direction: Vector3 = Vector3.ZERO	
+## Last non-zero direction, keeps skin facing forward when idle.
+var _last_move_direction: Vector3 = Vector3.BACK
+var is_jumping: bool = false
+var _was_on_floor: bool = false
+var _jump_buffer_timer: float = 0.0
+var _coyote_timer: float = 0.0
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+var state_machine: AnimationNodeStateMachinePlayback
 
 @onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
@@ -128,31 +128,29 @@ func _update_jump(delta: float) -> void:
 
 func _update_movement(delta: float) -> void:
 	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-
 	var forward := _camera.global_basis.z
 	var right := _camera.global_basis.x
-	
+
+	# Combines input with camera axes into a world-space direction.
+	# Y zeroed so camera pitch doesn't push the character up or down.
 	move_direction = (forward * raw_input.y + right * raw_input.x)
 	move_direction.y = 0.0
 
-	# Cache direction before normalizing, skin keeps facing last direction when player stops.
-	if move_direction.length_squared() > 0.0:
-		_last_move_direction = move_direction.normalized()
-		move_direction = move_direction.normalized()
+	# Normalizes so diagonal movement isn't faster.
+	move_direction = move_direction.normalized()
 
+	# Smoothly accelerate toward target velocity.
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
-	
-	# BACK (-Z) is Godot's default model forward
-	# Change to FORWARD if skin was imported facing +Z
+
+	# Cache last non-zero direction so skin keeps facing forward when the player stops.
+	if move_direction.length() > 0.2:
+		_last_move_direction = move_direction
+
+	# Rotates the model to face movement direction. 
+	# BACK (-Z) is Godot's default model forward.
+	# Change to FORWARD if skin was imported facing +Z.
 	var target_angle := Vector3.BACK.signed_angle_to(_last_move_direction, Vector3.UP)
 	_skin.rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
-
-
-	var target_tilt := 0.0
-	if is_on_floor():
-		target_tilt = Vector3.UP.signed_angle_to(get_floor_normal(), _skin.global_basis.x)
-	_skin.rotation.x = lerp_angle(_skin.rotation.x, target_tilt, rotation_speed * delta)
-
 
 func _update_debug() -> void:
 	DebugDraw2D.set_text("FPS", Engine.get_frames_per_second())
