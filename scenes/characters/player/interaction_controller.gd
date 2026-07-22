@@ -8,12 +8,17 @@ extends Node
 @onready var interaction_hand: Marker3D = %InteractionHand
 @onready var interactable_check: Area3D = $"../InteractableCheck"
 @onready var outline_material: Material = preload("res://scenes/materials/outline.tres")
+@onready var default_reticle: TextureRect = %DefaultReticle
 
 var current_object: Object = null
 var last_potential_object: Object = null
 var interaction_component: Node = null
 
 func _ready() -> void:
+	# THE MOUSE DOESN'T WORK VAI TOMAR NO CU
+	default_reticle.position.x = get_viewport().size.x / 2 - default_reticle.texture.get_size().x / 2
+	default_reticle.position.y = get_viewport().size.y / 2 - default_reticle.texture.get_size().y / 2
+
 	interactable_check.body_entered.connect(_on_body_entered)
 	interactable_check.body_exited.connect(_on_body_exited)
 
