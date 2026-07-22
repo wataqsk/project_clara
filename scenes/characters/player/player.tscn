@@ -6,6 +6,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://nxeox70eeh8m" path="res://assets/universal_animation_library/UAL2_Standard.glb" id="4_qd3e3"]
 [ext_resource type="PackedScene" uid="uid://bvn5lpjnoucn7" path="res://scenes/characters/player/interaction_controller.tscn" id="5_djydg"]
 [ext_resource type="Script" uid="uid://cc4l42oehaxov" path="res://scenes/characters/player/state_machine.gd" id="5_qd3e3"]
+[ext_resource type="Script" uid="uid://dafrh2k55pbag" path="res://scenes/characters/player/debug.gd" id="6_bsn6e"]
 [ext_resource type="Script" uid="uid://6nyojw1ucr7b" path="res://scenes/characters/player/states/idle.gd" id="6_xuses"]
 [ext_resource type="Script" uid="uid://dnfqwkpb18sqm" path="res://scenes/characters/player/states/walking.gd" id="7_mk55u"]
 [ext_resource type="Script" uid="uid://cntj5uyqow0q0" path="res://scenes/characters/player/states/jumping.gd" id="8_3xnwo"]
@@ -113,12 +114,13 @@ script = ExtResource("1_x0jl3")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1457932589]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="InteractionRaycast" type="RayCast3D" parent="CameraPivot" unique_id=1651466004]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 0, 0, 0)
 target_position = Vector3(0, 0, -2)
+debug_shape_custom_color = Color(1, 1, 0, 1)
 
 [node name="InteractionHand" type="Marker3D" parent="CameraPivot" unique_id=181113397]
 unique_name_in_owner = true
@@ -156,6 +158,9 @@ parameters/Movement/Walking/blend_position = Vector2(-1.2226365, 1.701673)
 
 [node name="InteractionController" parent="." unique_id=1024412204 instance=ExtResource("5_djydg")]
 unique_name_in_owner = true
+
+[node name="Debug" type="Node" parent="." unique_id=97154139]
+script = ExtResource("6_bsn6e")
 
 [node name="StateMachine" type="Node" parent="." unique_id=757438713 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_qd3e3")

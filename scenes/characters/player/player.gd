@@ -12,7 +12,6 @@ extends CharacterBody3D
 ## Maximum upward angle the camera can look.
 @export_range(0.0, 90.0, 5.0, "suffix:°") var camera_pitch_max:float = 80.0
 
-
 @export_category("Movement")
 @export_group("Character Speed")
 ## How fast the character can move.
@@ -77,7 +76,6 @@ func _physics_process(delta: float) -> void:
 	_update_jump(delta)
 	_update_gravity(delta)
 	move_and_slide()
-	_update_debug()
 
 func _update_camera(delta: float) -> void:
 	_camera_pivot.rotation.x += _camera_input_direction.y * delta
@@ -151,7 +149,3 @@ func _update_movement(delta: float) -> void:
 	# Change to FORWARD if skin was imported facing +Z.
 	var target_angle := Vector3.BACK.signed_angle_to(_last_move_direction, Vector3.UP)
 	_skin.rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
-
-func _update_debug() -> void:
-	DebugDraw2D.set_text("FPS", Engine.get_frames_per_second())
-	DebugDraw2D.set_text("Floor", "Yes" if is_on_floor() else "No")
