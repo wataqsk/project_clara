@@ -30,13 +30,6 @@ size = Vector3(5, 2.5, 0.25)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wqw67"]
 size = Vector3(5, 2.5, 0.25)
 
-[sub_resource type="PrismMesh" id="PrismMesh_pe00h"]
-left_to_right = 1.5
-size = Vector3(3, 3, 3)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8edn5"]
-points = PackedVector3Array(3, 1.5, 1.5, 3, 1.5, -1.5, -1.5, -1.5, 1.5, 1.4997063, -1.5, 1.5, 1.4997063, -1.5, -1.5, -1.5, -1.5, -1.5)
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a0jwt"]
 
 [sub_resource type="Sky" id="Sky_w7c3h"]
@@ -80,15 +73,6 @@ mesh = SubResource("BoxMesh_n2trt")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Wall2" unique_id=46315418]
 shape = SubResource("BoxShape3D_wqw67")
 
-[node name="Ramp" type="StaticBody3D" parent="World" unique_id=1710746528]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -5, 1.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ramp" unique_id=534845430]
-mesh = SubResource("PrismMesh_pe00h")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ramp" unique_id=169257514]
-shape = SubResource("ConvexPolygonShape3D_8edn5")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=712538535]
 transform = Transform3D(-4.371139e-08, -0.5, 0.8660254, 0, 0.8660254, 0.5, -1, 2.1855694e-08, -3.7855173e-08, 0, 10, 0)
 metadata/_edit_lock_ = true
@@ -105,6 +89,9 @@ environment = SubResource("Environment_q5ged")
 [node name="Cube_1kg" parent="Objects" unique_id=1173868924 instance=ExtResource("3_53s04")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 6)
 
+[node name="Cube_1kg2" parent="Objects" unique_id=2130894468 instance=ExtResource("3_53s04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3)
+
 [node name="Cube_5kg" parent="Objects" unique_id=1210195085 instance=ExtResource("4_53s04")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 6)
 
@@ -119,3 +106,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 5)
 
 [node name="Can3" parent="Objects" unique_id=16628368 instance=ExtResource("7_8edn5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 5)
+
+[node name="Can4" parent="Objects" unique_id=1252569188 instance=ExtResource("7_8edn5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 3)

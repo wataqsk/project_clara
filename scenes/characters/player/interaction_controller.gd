@@ -9,26 +9,44 @@ extends Node
 @onready var interactable_check: Area3D = $"../InteractableCheck"
 @onready var outline_material: Material = preload("res://scenes/materials/outline.tres")
 @onready var default_reticle: TextureRect = %DefaultReticle
+@onready var highlight_reticle: TextureRect = %HighlightReticle
+@onready var interacting_reticle: TextureRect = %InteractingReticle
 
 var current_object: Object = null
 var last_potential_object: Object = null
 var interaction_component: Node = null
 
 func _ready() -> void:
-	# THE MOUSE DOESN'T WORK VAI TOMAR NO CU
-	default_reticle.position.x = get_viewport().size.x / 2 - default_reticle.texture.get_size().x / 2
-	default_reticle.position.y = get_viewport().size.y / 2 - default_reticle.texture.get_size().y / 2
+	# Centers each reticle on screen based on the viewport size and the reticle's texture size.
+	default_reticle.position.x     = get_viewport().size.x / 2 - default_reticle.texture.get_size().x     / 2
+	default_reticle.position.y     = get_viewport().size.y / 2 - default_reticle.texture.get_size().y     / 2
+	highlight_reticle.position.x   = get_viewport().size.x / 2 - highlight_reticle.texture.get_size().x   / 2
+	highlight_reticle.position.y   = get_viewport().size.y / 2 - highlight_reticle.texture.get_size().y   / 2
+	interacting_reticle.position.x = get_viewport().size.x / 2 - interacting_reticle.texture.get_size().x / 2
+	interacting_reticle.position.y = get_viewport().size.y / 2 - interacting_reticle.texture.get_size().y / 2
+
+	# Tells a Control node to ignore mouse or touch events.
+	# You'll need it if you place an icon on top of a button.
+	default_reticle.mouse_filter     = Control.MOUSE_FILTER_IGNORE
+	highlight_reticle.mouse_filter   = Control.MOUSE_FILTER_IGNORE
+	interacting_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	interactable_check.body_entered.connect(_on_body_entered)
 	interactable_check.body_exited.connect(_on_body_exited)
 
 func _process(_delta: float) -> void:
+
+	# Show the interacting reticle while the player is actively using the object.
+	if interaction_component and interaction_component.is_interacting:
+		_show_interacting_reticle()
+
 	# If an object was being interacted with last frame, continue interacting this frame.
 	if current_object:
 		if Input.is_action_pressed("right_click"):
 			if interaction_component:
 				interaction_component.alt_interact()
 				current_object = null
+				_show_default_reticle()
 		elif Input.is_action_pressed("left_click"):
 			if interaction_component:
 				interaction_component.interact()
@@ -37,6 +55,8 @@ func _process(_delta: float) -> void:
 			if interaction_component:
 				interaction_component.post_interact()
 				current_object = null
+				# Interaction ended, go back to the default reticle.
+				_show_default_reticle()
 
 	# When there is no active interaction, check if the player can start one.
 	else:
@@ -50,6 +70,10 @@ func _process(_delta: float) -> void:
 				if interaction_component.can_interact == false:
 					return
 
+				last_potential_object = current_object
+				# Looking at an interactable object, show the highlight reticle.
+				_show_highlight_reticle()
+
 				# Begin interaction when the player clicks on the object.
 				if Input.is_action_just_pressed("left_click"):
 					current_object = potential_object
@@ -57,6 +81,25 @@ func _process(_delta: float) -> void:
 
 					if interaction_component.interaction_type == interaction_component.InteractionType.ITEM:
 						interaction_component.connect("item_collected", Callable(self, "_on_item_collected"))
+		else:
+			# Not looking at anything interactable, show the default reticle.
+			_show_default_reticle()
+
+# TO-DO: Refactor into an enum-based method to avoid repetition.
+func _show_default_reticle() -> void:
+	default_reticle.visible = true
+	highlight_reticle.visible = false
+	interacting_reticle.visible = false
+
+func _show_highlight_reticle() -> void:
+	default_reticle.visible = false
+	highlight_reticle.visible = true
+	interacting_reticle.visible = false
+
+func _show_interacting_reticle() -> void:
+	default_reticle.visible = false
+	highlight_reticle.visible = false
+	interacting_reticle.visible = true
 
 func _on_item_collected(item: Node):
 	# INVENTORY SYSTEM

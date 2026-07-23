@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://briu3w2l0r8tx" path="res://assets/cursor_pixel_pack/Tiles/tile_0045.png" id="7_blysn"]
 [ext_resource type="Script" uid="uid://dnfqwkpb18sqm" path="res://scenes/characters/player/states/walking.gd" id="7_mk55u"]
 [ext_resource type="Script" uid="uid://cntj5uyqow0q0" path="res://scenes/characters/player/states/jumping.gd" id="8_3xnwo"]
+[ext_resource type="Texture2D" uid="uid://c0t0xaq6dhryv" path="res://assets/cursor_pixel_pack/Tiles/tile_0135.png" id="8_hv5x3"]
 [ext_resource type="Script" uid="uid://ddp3ll6essog7" path="res://scenes/characters/player/states/falling.gd" id="9_42irl"]
+[ext_resource type="Texture2D" uid="uid://b2vrrenf0an81" path="res://assets/cursor_pixel_pack/Tiles/tile_0136.png" id="9_ykrpk"]
 [ext_resource type="Script" uid="uid://uygcpxwbe8cu" path="res://scenes/characters/player/states/landing.gd" id="10_3xnwo"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x0jl3"]
@@ -115,7 +117,7 @@ script = ExtResource("1_x0jl3")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1457932589]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, 0)
 
 [node name="InteractionRaycast" type="RayCast3D" parent="CameraPivot" unique_id=1651466004]
 unique_name_in_owner = true
@@ -170,8 +172,6 @@ script = ExtResource("6_bsn6e")
 [node name="Control" type="Control" parent="GUI/ReticleLayer" unique_id=1336349154]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="DefaultReticle" type="TextureRect" parent="GUI/ReticleLayer/Control" unique_id=1554927606]
 unique_name_in_owner = true
@@ -179,6 +179,24 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("7_blysn")
+stretch_mode = 3
+
+[node name="HighlightReticle" type="TextureRect" parent="GUI/ReticleLayer/Control" unique_id=1291737938]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_hv5x3")
+stretch_mode = 3
+
+[node name="InteractingReticle" type="TextureRect" parent="GUI/ReticleLayer/Control" unique_id=1132974137]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("9_ykrpk")
 stretch_mode = 3
 
 [node name="StateMachine" type="Node" parent="." unique_id=757438713 node_paths=PackedStringArray("initial_state")]
