@@ -1,15 +1,9 @@
 [gd_scene format=3 uid="uid://dsomuu8s5orea"]
 
-[ext_resource type="Texture2D" uid="uid://ovkhdl1dqjkg" path="res://assets/prototype_textures/PNG/Green/texture_03.png" id="1_7x06c"]
 [ext_resource type="PackedScene" uid="uid://cwr5j8463foul" path="res://scenes/interactables/interaction_component.tscn" id="2_7x06c"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7x06c"]
-albedo_texture = ExtResource("1_7x06c")
-uv1_triplanar_sharpness = 35.506203
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n2trt"]
 lightmap_size_hint = Vector2i(6, 15)
-material = SubResource("StandardMaterial3D_7x06c")
 top_radius = 0.05
 bottom_radius = 0.05
 height = 1.0

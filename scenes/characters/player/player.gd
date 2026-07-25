@@ -49,8 +49,11 @@ var _coyote_timer: float = 0.0
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var state_machine: AnimationNodeStateMachinePlayback
 
-@onready var _camera_pivot: Node3D = %CameraPivot
 @onready var _camera: Camera3D = %Camera3D
+@onready var _camera_pivot: Node3D = %CameraPivot
+@onready var _interaction_controller: Node = %InteractionController
+@onready var _interaction_raycast: RayCast3D = %InteractionRaycast
+@onready var _inventory_controller: Node = %InventoryController/CanvasLayer/InventoryUI
 @onready var _skin: Node3D = %Mannequin
 
 func _ready() -> void:
@@ -60,6 +63,20 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		var is_captured = Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if is_captured else Input.MOUSE_MODE_CAPTURED
+
+	# Open inventory: show mouse for UI interaction, disable interact raycast.
+	if event.is_action_pressed("inventory"):
+		_inventory_controller.visible = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		_interaction_raycast.enabled = false
+
+	# Close inventory: hide UI, re-enable raycast, and recapture mouse.
+	elif event.is_action_released("inventory"):
+		_inventory_controller.visible = false
+		_interaction_raycast.enabled = true
+		# Only recapture the mouse if the player isn't mid-interaction.
+		if not _interaction_controller.current_object:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event: InputEvent) -> void:
 	var is_camera_motion := (
