@@ -23,7 +23,7 @@ radius = 0.25
 height = 1.8
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_n2trt"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hss88"]
 animation = &"UAL1_Standard/Jump"
@@ -148,6 +148,7 @@ shape = SubResource("SphereShape3D_n2trt")
 
 [node name="Mannequin" parent="." unique_id=1310423835 instance=ExtResource("2_3eadt")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006591797, 6.1035156e-05, 0.016357422)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mannequin" unique_id=1415025356]
 libraries/UAL1_Standard = ExtResource("3_hss88")

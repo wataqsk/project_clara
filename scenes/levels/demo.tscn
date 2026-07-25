@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ca5scm6kejoy5"]
+
+[ext_resource type="Texture2D" uid="uid://dcseh61efqe07" path="res://assets/prototype_textures/PNG/Light/texture_08.png" id="1_annih"]
+[ext_resource type="PackedScene" uid="uid://cb8dmciubuxoe" path="res://scenes/characters/player/player.tscn" id="3_vl7ud"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n2trt"]
+size = Vector3(80, 0.01, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0jwt"]
+albedo_texture = ExtResource("1_annih")
+uv1_scale = Vector3(80, 80, 80)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wqw67"]
+material = SubResource("StandardMaterial3D_a0jwt")
+size = Vector2(80, 80)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a0jwt"]
+
+[sub_resource type="Sky" id="Sky_w7c3h"]
+sky_material = SubResource("ProceduralSkyMaterial_a0jwt")
+
+[sub_resource type="Environment" id="Environment_q5ged"]
+background_mode = 2
+sky = SubResource("Sky_w7c3h")
+
+[node name="Demo" type="Node3D" unique_id=875305765]
+
+[node name="World" type="Node3D" parent="." unique_id=371854366]
+
+[node name="Floor" type="StaticBody3D" parent="World" unique_id=997435961]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor" unique_id=1921601429]
+shape = SubResource("BoxShape3D_n2trt")
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Floor" unique_id=372260011]
+mesh = SubResource("PlaneMesh_wqw67")
+metadata/_edit_lock_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=712538535]
+transform = Transform3D(-4.371139e-08, -0.5, 0.8660254, 0, 0.8660254, 0.5, -1, 2.1855694e-08, -3.7855173e-08, 0, 10, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=808178326]
+environment = SubResource("Environment_q5ged")
+
+[node name="Entities" type="Node3D" parent="." unique_id=1377992757]
+
+[node name="Player" parent="Entities" unique_id=1561012246 instance=ExtResource("3_vl7ud")]
+
+[node name="Objects" type="Node3D" parent="." unique_id=1514522832]

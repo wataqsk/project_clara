@@ -6,7 +6,7 @@
 render_priority = 0
 shader = ExtResource("1_uwoc5")
 shader_parameter/outline_color = Color(1, 0, 0, 1)
-shader_parameter/outline_width = 4.0
-shader_parameter/pulse_speed = 1.0
-shader_parameter/min_alpha = 0.0
+shader_parameter/outline_width = 2.0
+shader_parameter/pulse_speed = 0.0
+shader_parameter/min_alpha = 1.0
 shader_parameter/max_alpha = 1.0

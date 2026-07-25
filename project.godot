@@ -23,6 +23,7 @@ settings/addon_root_folder="res://addons/addons/debug_draw_3d"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
+window/size/borderless=true
 
 [dotnet]
 
@@ -73,9 +74,9 @@ jump={
 
 [physics]
 
+3d/physics_engine="Jolt Physics"
 3d/default_gravity=9.799999999999995
 
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-anti_aliasing/quality/msaa_3d=1

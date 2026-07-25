@@ -94,5 +94,6 @@ func _default_throw() -> void:
 		can_interact = true
 
 func _collect_item() -> void:
+	# Notify the item was collected, then remove it from the scene.
 	emit_signal("item_collected", get_parent())
 	get_parent().queue_free()

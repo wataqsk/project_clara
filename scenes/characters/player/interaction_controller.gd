@@ -7,10 +7,12 @@ extends Node
 @onready var player_camera: Camera3D = %Camera3D
 @onready var interaction_hand: Marker3D = %InteractionHand
 @onready var interactable_check: Area3D = $"../InteractableCheck"
-@onready var outline_material: Material = preload("res://scenes/materials/outline.tres")
+
 @onready var default_reticle: TextureRect = %DefaultReticle
 @onready var highlight_reticle: TextureRect = %HighlightReticle
 @onready var interacting_reticle: TextureRect = %InteractingReticle
+
+@onready var outline_material: Material = preload("res://scenes/materials/outline.tres")
 
 var current_object: Object = null
 var last_potential_object: Object = null
@@ -31,6 +33,7 @@ func _ready() -> void:
 	highlight_reticle.mouse_filter   = Control.MOUSE_FILTER_IGNORE
 	interacting_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
+	# Connect signals for entering and exiting the interactable check radius.
 	interactable_check.body_entered.connect(_on_body_entered)
 	interactable_check.body_exited.connect(_on_body_exited)
 
@@ -75,10 +78,12 @@ func _process(_delta: float) -> void:
 				_show_highlight_reticle()
 
 				# Begin interaction when the player clicks on the object.
+				# is_action_just_pressed prevents the raycast from triggering pickup multiple times in one click.
 				if Input.is_action_just_pressed("left_click"):
 					current_object = potential_object
 					interaction_component.pre_interact(interaction_hand)
 
+					# When picking up an item, connect its collected signal to this script.
 					if interaction_component.interaction_type == interaction_component.InteractionType.ITEM:
 						interaction_component.connect("item_collected", Callable(self, "_on_item_collected"))
 		else:
@@ -96,6 +101,7 @@ func _show_highlight_reticle() -> void:
 	highlight_reticle.visible = true
 	interacting_reticle.visible = false
 
+# TO-DO: Fix the reticle staying visible after the interaction ends.
 func _show_interacting_reticle() -> void:
 	default_reticle.visible = false
 	highlight_reticle.visible = false
@@ -106,9 +112,10 @@ func _on_item_collected(item: Node):
 	print("Player Collected: ", item)
 
 func _on_body_entered(body: Node3D) -> void:
+	# Ignore the player itself entering the check radius.
 	if body.name != "Player":
-		var name = body.name
 		var ic = body.get_node_or_null("InteractionComponent")
+		# Only outline items and ignore other interactable types.
 		if ic and ic.interaction_type == ic.InteractionType.ITEM:
 			var mesh: MeshInstance3D = body.find_child("MeshInstance3D", true, false)
 			mesh.material_overlay = outline_material
@@ -116,5 +123,6 @@ func _on_body_entered(body: Node3D) -> void:
 func _on_body_exited(body: Node3D) -> void:
 	if body.name != "Player":
 		var mesh: MeshInstance3D = body.find_child("MeshInstance3D", true, false)
-		if mesh: 
+		# Remove the outline if the object had one.
+		if mesh:
 			mesh.material_overlay = null
