@@ -23,6 +23,8 @@ enum InteractionType {
 @export_range(0.0, 50.0, 1.0, "suffix:m/s") var throw_force: float = 10.0
 ## Time before the player can interact with the thrown object again.
 @export_range(0.0, 5.0, 0.1, "suffix:s") var throw_cooldown: float = 2.0
+## Maximum distance the player can be from this object before interaction ends.
+@export_range(0.5, 10.0, 0.5, "suffix:m") var max_interact_distance: float = 6.0
 
 var can_interact: bool = true
 var is_interacting: bool = false

@@ -12,7 +12,7 @@ extends Node
 @onready var highlight_reticle: TextureRect = %HighlightReticle
 @onready var interacting_reticle: TextureRect = %InteractingReticle
 
-@onready var outline_material: Material = preload("res://scenes/materials/outline.tres")
+@onready var outline_material: Material = preload("res://scenes/materials/item_highlighter.tres")
 
 var current_object: Object = null
 var last_potential_object: Object = null
@@ -45,6 +45,13 @@ func _process(_delta: float) -> void:
 
 	# If an object was being interacted with last frame, continue interacting this frame.
 	if current_object:
+		# End the interaction if the player moves too far from the object.
+		if player_camera.global_transform.origin.distance_to(current_object.global_transform.origin) > interaction_component.max_interact_distance:
+			if interaction_component:
+				interaction_component.post_interact()
+			current_object = null
+			_show_default_reticle()
+
 		if Input.is_action_pressed("right_click"):
 			if interaction_component:
 				interaction_component.alt_interact()
