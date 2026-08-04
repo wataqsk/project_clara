@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b5kghc5aau0lx"]
 
+[ext_resource type="Script" uid="uid://8jml1x3w4aiq" path="res://scenes/characters/player/inventory_controller.gd" id="1_2l0fy"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ueta"]
 content_margin_left = 0.0
 content_margin_top = 0.0
@@ -28,6 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2l0fy")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/InventoryUI" unique_id=1007152677]
 custom_minimum_size = Vector2(100, 100)
@@ -58,6 +61,7 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/InventoryUI/Panel/MarginContainer" unique_id=450255867]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 columns = 5

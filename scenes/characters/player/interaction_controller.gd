@@ -108,7 +108,6 @@ func _show_highlight_reticle() -> void:
 	highlight_reticle.visible = true
 	interacting_reticle.visible = false
 
-# TO-DO: Fix the reticle staying visible after the interaction ends.
 func _show_interacting_reticle() -> void:
 	default_reticle.visible = false
 	highlight_reticle.visible = false

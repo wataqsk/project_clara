@@ -1,11 +1,3 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://ckqwjrlihh5v3"]
 
-[ext_resource type="Shader" uid="uid://ou6afof0kn4q" path="res://scenes/shaders/item_highlighter.gdshader" id="1_7kbgq"]
-
 [resource]
-render_priority = 0
-shader = ExtResource("1_7kbgq")
-shader_parameter/shine_color = Color(1, 1, 1, 1)
-shader_parameter/cycle_interval = 3.00000011875
-shader_parameter/shine_speed = 1.0
-shader_parameter/shine_width = 3.0
