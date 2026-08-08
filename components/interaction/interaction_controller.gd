@@ -12,7 +12,7 @@ extends Node
 @onready var highlight_reticle: TextureRect = %HighlightReticle
 @onready var interacting_reticle: TextureRect = %InteractingReticle
 
-@onready var outline_material: Material = preload("res://scenes/materials/item_highlighter.tres")
+@onready var outline_material: Material = preload("res://materials/item_highlighter.tres")
 
 var current_object: Object = null
 var last_potential_object: Object = null
