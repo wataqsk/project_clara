@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b5kghc5aau0lx"]
 
-[ext_resource type="Script" uid="uid://8jml1x3w4aiq" path="res://scenes/characters/player/inventory_controller.gd" id="1_2l0fy"]
+[ext_resource type="Script" uid="uid://8jml1x3w4aiq" path="res://components/inventory/inventory_controller.gd" id="1_2l0fy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ueta"]
 content_margin_left = 0.0

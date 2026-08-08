@@ -29,6 +29,38 @@ window/size/borderless=true
 
 project/assembly_name="projeto_sucata"
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://addons/debug_draw_3d/": "red",
+"res://assets/": "orange",
+"res://assets/classic_64_asset_library/": "orange",
+"res://assets/cursor_pixel_pack/": "orange",
+"res://assets/free_3d_modular_game_assets_for_prototyping/": "orange",
+"res://assets/horror_texture_pack/": "orange",
+"res://assets/prototype_textures/": "orange",
+"res://assets/psx_industrial_environment_asset_pack/": "orange",
+"res://assets/retro-psx-nature-pack/": "orange",
+"res://assets/retro-psx-style-tree-pack/": "orange",
+"res://assets/tiny_texture_pack/": "orange",
+"res://assets/tiny_texture_pack_2/": "orange",
+"res://assets/tiny_texture_pack_3/": "orange",
+"res://assets/universal_animation_library/": "orange",
+"res://components/": "yellow",
+"res://materials/": "green",
+"res://scenes/": "teal",
+"res://scenes/characters/": "teal",
+"res://scenes/characters/player/": "teal",
+"res://scenes/characters/player/states/": "teal",
+"res://scenes/interactables/": "teal",
+"res://scenes/interactables/default/": "teal",
+"res://scenes/interactables/items/": "teal",
+"res://scenes/levels/": "teal",
+"res://scenes/props/": "teal",
+"res://shaders/": "blue"
+}
+
 [input]
 
 move_left={

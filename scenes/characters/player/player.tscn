@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cpg8cjho5elqa" path="res://scenes/characters/player/mannequin.tscn" id="2_3eadt"]
 [ext_resource type="AnimationLibrary" uid="uid://chbgh3gmtasfr" path="res://assets/universal_animation_library/UAL1_Standard.glb" id="3_hss88"]
 [ext_resource type="AnimationLibrary" uid="uid://nxeox70eeh8m" path="res://assets/universal_animation_library/UAL2_Standard.glb" id="4_qd3e3"]
-[ext_resource type="PackedScene" uid="uid://bvn5lpjnoucn7" path="res://scenes/characters/player/interaction_controller.tscn" id="5_djydg"]
-[ext_resource type="Script" uid="uid://cc4l42oehaxov" path="res://scenes/characters/player/state_machine.gd" id="5_qd3e3"]
-[ext_resource type="Script" uid="uid://dafrh2k55pbag" path="res://scenes/characters/player/debug.gd" id="6_bsn6e"]
+[ext_resource type="PackedScene" uid="uid://bvn5lpjnoucn7" path="res://components/interaction/interaction_controller.tscn" id="5_djydg"]
+[ext_resource type="Script" uid="uid://cc4l42oehaxov" path="res://scenes/characters/player/states/state_machine.gd" id="5_qd3e3"]
+[ext_resource type="Script" uid="uid://dafrh2k55pbag" path="res://components/debug/debug.gd" id="6_bsn6e"]
 [ext_resource type="Script" uid="uid://6nyojw1ucr7b" path="res://scenes/characters/player/states/idle.gd" id="6_xuses"]
 [ext_resource type="Texture2D" uid="uid://briu3w2l0r8tx" path="res://assets/cursor_pixel_pack/Tiles/tile_0045.png" id="7_blysn"]
 [ext_resource type="Script" uid="uid://dnfqwkpb18sqm" path="res://scenes/characters/player/states/walking.gd" id="7_mk55u"]
@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://ddp3ll6essog7" path="res://scenes/characters/player/states/falling.gd" id="9_42irl"]
 [ext_resource type="Texture2D" uid="uid://b2vrrenf0an81" path="res://assets/cursor_pixel_pack/Tiles/tile_0136.png" id="9_ykrpk"]
 [ext_resource type="Script" uid="uid://uygcpxwbe8cu" path="res://scenes/characters/player/states/landing.gd" id="10_3xnwo"]
-[ext_resource type="PackedScene" uid="uid://b5kghc5aau0lx" path="res://scenes/characters/player/inventory_controller.tscn" id="16_i1nod"]
+[ext_resource type="PackedScene" uid="uid://b5kghc5aau0lx" path="res://components/inventory/inventory_controller.tscn" id="16_i1nod"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x0jl3"]
 
