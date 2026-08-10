@@ -7,6 +7,7 @@ extends Node
 @onready var player_camera: Camera3D = %Camera3D
 @onready var interaction_hand: Marker3D = %InteractionHand
 @onready var interactable_check: Area3D = $"../InteractableCheck"
+@onready var inventory_controller: Node = %InventoryController/CanvasLayer/InventoryUI
 
 @onready var default_reticle: TextureRect = %DefaultReticle
 @onready var highlight_reticle: TextureRect = %HighlightReticle
@@ -17,6 +18,8 @@ extends Node
 var current_object: Object = null
 var last_potential_object: Object = null
 var interaction_component: Node = null
+
+signal invent_on_item_collected(item)
 
 func _ready() -> void:
 	# Centers each reticle on screen based on the viewport size and the reticle's texture size.
@@ -32,6 +35,9 @@ func _ready() -> void:
 	default_reticle.mouse_filter     = Control.MOUSE_FILTER_IGNORE
 	highlight_reticle.mouse_filter   = Control.MOUSE_FILTER_IGNORE
 	interacting_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	#
+	invent_on_item_collected.connect(inventory_controller.pickup_item)
 
 	# Connect signals for entering and exiting the interactable check radius.
 	interactable_check.body_entered.connect(_on_body_entered)
@@ -113,9 +119,16 @@ func _show_interacting_reticle() -> void:
 	highlight_reticle.visible = false
 	interacting_reticle.visible = true
 
-func _on_item_collected(item: Node):
-	# INVENTORY SYSTEM
-	print("Player Collected: ", item)
+func _on_item_collected(item: Node) -> void:
+	item.visible = false
+	_add_item_to_inventory(interaction_component.item_data)
+	item.queue_free()
+
+func _add_item_to_inventory(item_data: ItemData) -> void:
+	if item_data != null:
+		invent_on_item_collected.emit(item_data)
+		return
+	print("ItemData not found.")
 
 func _on_body_entered(body: Node3D) -> void:
 	# Ignore the player itself entering the check radius.

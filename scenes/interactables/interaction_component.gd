@@ -1,3 +1,4 @@
+# TO-DO: Add selectable SFXs.
 # Attach this script to any object that should be interactable.
 # Set the object reference and interaction type in the Inspector.
 # This script is set per object in the Inspector.
@@ -15,6 +16,8 @@ enum InteractionType {
 @export var object_ref: Node3D
 ## Determines what happens when the player interacts with this object.
 @export var interaction_type: InteractionType = InteractionType.DEFAULT
+##
+@export var item_data: ItemData
 
 @export_group("Pickup Properties")
 ## How strongly the object is pulled toward the player's hand.

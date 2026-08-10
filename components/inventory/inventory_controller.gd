@@ -14,3 +14,17 @@ func _ready() -> void:
 		# add the slot id
 		# link the drag / drop / use
 		inventory_slots.append(slot)
+
+func has_free_slot() -> bool:
+	for slot in inventory_slots:
+		if slot.slot_data == null:
+			return true
+	return false
+
+func pickup_item(item_data: ItemData) -> void:
+	for slot in inventory_slots:
+		if not slot.slot_filled:
+			slot.fill_slot(item_data)
+			inventory_full = not has_free_slot()
+			return
+	inventory_full = true
