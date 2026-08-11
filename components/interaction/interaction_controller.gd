@@ -36,7 +36,7 @@ func _ready() -> void:
 	highlight_reticle.mouse_filter   = Control.MOUSE_FILTER_IGNORE
 	interacting_reticle.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	#
+	# Connect this signal to the inventory's pickup handler.
 	invent_on_item_collected.connect(inventory_controller.pickup_item)
 
 	# Connect signals for entering and exiting the interactable check radius.
@@ -120,11 +120,13 @@ func _show_interacting_reticle() -> void:
 	interacting_reticle.visible = true
 
 func _on_item_collected(item: Node) -> void:
+	# Hide immediately so it doesn't flicker while queue_free() processes.
 	item.visible = false
 	_add_item_to_inventory(interaction_component.item_data)
 	item.queue_free()
 
 func _add_item_to_inventory(item_data: ItemData) -> void:
+	# Only forward valid item data to the inventory, silently ignore otherwise.
 	if item_data != null:
 		invent_on_item_collected.emit(item_data)
 		return

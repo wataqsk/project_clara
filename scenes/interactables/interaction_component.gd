@@ -16,7 +16,7 @@ enum InteractionType {
 @export var object_ref: Node3D
 ## Determines what happens when the player interacts with this object.
 @export var interaction_type: InteractionType = InteractionType.DEFAULT
-##
+## The item this object represents when picked up.
 @export var item_data: ItemData
 
 @export_group("Pickup Properties")
@@ -99,6 +99,5 @@ func _default_throw() -> void:
 		can_interact = true
 
 func _collect_item() -> void:
-	# Notify the item was collected, then remove it from the scene.
+	# Notify the controller the item was collected.
 	emit_signal("item_collected", get_parent())
-	get_parent().queue_free()
