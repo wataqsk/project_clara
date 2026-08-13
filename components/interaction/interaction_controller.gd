@@ -44,6 +44,13 @@ func _ready() -> void:
 	interactable_check.body_exited.connect(_on_body_exited)
 
 func _process(_delta: float) -> void:
+	# Block interaction entirely while the inventory is open.
+	if inventory_controller.visible:
+		default_reticle.visible = false
+		highlight_reticle.visible = false
+		interacting_reticle.visible = false
+		current_object = null
+		return
 
 	# Show the interacting reticle while the player is actively using the object.
 	if interaction_component and interaction_component.is_interacting:
