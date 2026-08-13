@@ -20,7 +20,7 @@ func fill_slot(item_data: ItemData) -> void:
 		slot_filled = false
 		icon_slot.texture = null
 
-func _get_drag_data(at_position: Vector2) -> Variant:
+func _get_drag_data(_at_position: Vector2) -> Variant:
 	if slot_filled:
 		var preview: TextureRect = TextureRect.new()
 		preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE

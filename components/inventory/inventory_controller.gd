@@ -1,6 +1,8 @@
 class_name InventoryController
 extends Control
 
+@onready var context_menu: PopupMenu = PopupMenu.new()
+
 var item_slots_count: int = 20
 var inventory_slot_prefab: PackedScene = load("res://components/inventory/inventory_slot.tscn")
 @onready var inventory_grid: GridContainer = %GridContainer
@@ -16,6 +18,9 @@ func _ready() -> void:
 		slot.on_item_double_clicked.connect(_on_item_double_clicked)
 		slot.on_item_right_clicked.connect(_on_item_right_clicked)
 		inventory_slots.append(slot)
+
+	add_child(context_menu)
+	context_menu.connect("id_pressed", Callable(self, "_on_context_menu_selected"))
 
 func has_free_slot() -> bool:
 	for slot in inventory_slots:
@@ -38,7 +43,62 @@ func _on_item_swapped_on_slot(from_slot_id: int, to_slot_id: int) -> void:
 	inventory_slots[from_slot_id].fill_slot(to_slot_item)
 
 func _on_item_double_clicked(slot_id: int) -> void:
-	return
+	var slot: InventorySlot = inventory_slots[slot_id]
+	if slot.slot_data == null:
+		return
+
+	match _get_item_action_type(slot.slot_data):
+		ActionData.ActionType.CONSUMABLE:
+			print("Use Thing")
+		ActionData.ActionType.EQUIPPABLE:
+			print("Equip Thing")
+		ActionData.ActionType.INSPECTABLE:
+			print("View Thing")
 
 func _on_item_right_clicked(slot_id: int) -> void:
-	return
+	var slot: InventorySlot = inventory_slots[slot_id]
+	if slot.slot_data == null:
+		return
+
+	context_menu.clear()
+	match _get_item_action_type(slot.slot_data):
+		ActionData.ActionType.CONSUMABLE:
+			context_menu.add_item("Use", 0)
+			context_menu.add_item("Drop", 1)
+		ActionData.ActionType.EQUIPPABLE:
+			context_menu.add_item("Equip", 0)
+			context_menu.add_item("Drop", 1)
+		ActionData.ActionType.INSPECTABLE:
+			context_menu.add_item("View", 0)
+			context_menu.add_item("Drop", 1)
+
+	context_menu.set_meta("slot_id", slot_id)
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var rect: Rect2i = Rect2i(mouse_pos.floor(), Vector2i(1,1))
+	context_menu.popup(rect)
+
+func _on_context_menu_selected(id: int) -> void:
+	var slot_id = context_menu.get_meta("slot_id")
+	var slot: InventorySlot = inventory_slots[slot_id]
+	if slot.slot_data == null:
+		return
+
+	match _get_item_action_type(slot.slot_data): 
+		ActionData.ActionType.CONSUMABLE:
+			match id:
+				0: print("Use Thing")
+				1: print("Drop Thing")
+		ActionData.ActionType.EQUIPPABLE:
+			match id:
+				0: print("Equip Thing")
+				1: print("Drop Thing")
+		ActionData.ActionType.INSPECTABLE:
+			match id:
+				0: print("View Thing")
+				1: print("Drop Thing")
+
+func _get_item_action_type(item_data: ItemData) -> ActionData.ActionType:
+	if not item_data or not item_data.item_model_prefab == null:
+		return ActionData.ActionType.INVALID
+
+	return item_data.action_data.action_type
