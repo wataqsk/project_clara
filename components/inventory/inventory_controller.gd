@@ -36,6 +36,16 @@ func pickup_item(item_data: ItemData) -> void:
 			return
 	inventory_full = true
 
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	var slot: InventorySlot = inventory_slots[data]
+	if slot.slot_data == null:
+		return false
+	return true
+
+func _drop_data(at_position: Vector2, data: Variant) -> void:
+	# call drop code
+	inventory_full = not has_free_slot()
+
 func _on_item_swapped_on_slot(from_slot_id: int, to_slot_id: int) -> void:
 	var to_slot_item: ItemData = inventory_slots[to_slot_id].slot_data
 	var from_slot_item: ItemData = inventory_slots[from_slot_id].slot_data
@@ -49,6 +59,7 @@ func _on_item_double_clicked(slot_id: int) -> void:
 
 	match _get_item_action_type(slot.slot_data):
 		ActionData.ActionType.CONSUMABLE:
+			# use_collectable(slot_id)
 			print("Use Thing")
 		ActionData.ActionType.EQUIPPABLE:
 			print("Equip Thing")
@@ -86,7 +97,8 @@ func _on_context_menu_selected(id: int) -> void:
 	match _get_item_action_type(slot.slot_data): 
 		ActionData.ActionType.CONSUMABLE:
 			match id:
-				0: print("Use Thing")
+				0:  # use_collectable(slot_id)
+					print("Use Thing")
 				1: print("Drop Thing")
 		ActionData.ActionType.EQUIPPABLE:
 			match id:
@@ -102,3 +114,18 @@ func _get_item_action_type(item_data: ItemData) -> ActionData.ActionType:
 		return ActionData.ActionType.INVALID
 
 	return item_data.action_data.action_type
+
+## Actions
+func use_collectable(slot_id: int) -> void:
+	var slot: InventorySlot = inventory_slots[slot_id]
+	if slot.slot_data == null:
+		return
+
+	# health_controller not yet implemented.
+	# var action_data: ActionData = slot.slot_data.action_data
+	# match action_data.modifier_name:
+	# "health":
+	# health_controller.add_health(action_data.modifier_value)
+
+	inventory_full = not has_free_slot()
+	slot.fill_slot(null)
