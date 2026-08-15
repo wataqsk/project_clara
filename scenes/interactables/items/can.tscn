@@ -18,10 +18,13 @@ radius = 0.1
 script = ExtResource("2_tsnuh")
 metadata/_custom_type_script = "uid://ce2yqqwkf0j2p"
 
+[sub_resource type="PackedScene" id="PackedScene_4kqyw"]
+
 [sub_resource type="Resource" id="Resource_qsbct"]
 script = ExtResource("3_aj20k")
 item_name = "default"
 item_icon = ExtResource("3_d1af2")
+item_model_prefab = SubResource("PackedScene_4kqyw")
 action_data = SubResource("Resource_g2eh1")
 metadata/_custom_type_script = "uid://dn048ilffx8s6"
 

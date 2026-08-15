@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsomuu8s5orea"]
 
 [ext_resource type="PackedScene" uid="uid://cwr5j8463foul" path="res://scenes/interactables/interaction_component.tscn" id="2_7x06c"]
-[ext_resource type="Script" uid="uid://dt5iwpdhcy76r" path="res://components/inventory/actions/equippable_action.gd" id="2_un0j6"]
+[ext_resource type="Script" uid="uid://ce2yqqwkf0j2p" path="res://components/inventory/actions/consumable_action.gd" id="2_un0j6"]
 [ext_resource type="Texture2D" uid="uid://d11k0vxfq4im8" path="res://assets/600_clean_and_minimal_game_icons_ultimate_pack/2x/Wrench 2.png" id="3_vso2y"]
 [ext_resource type="Script" uid="uid://dn048ilffx8s6" path="res://components/inventory/item_data.gd" id="4_k66i0"]
 
@@ -15,15 +15,18 @@ height = 1.0
 height = 1.0
 radius = 0.05
 
-[sub_resource type="Resource" id="Resource_1khap"]
+[sub_resource type="Resource" id="Resource_aj20k"]
 script = ExtResource("2_un0j6")
-metadata/_custom_type_script = "uid://dt5iwpdhcy76r"
+metadata/_custom_type_script = "uid://ce2yqqwkf0j2p"
+
+[sub_resource type="PackedScene" id="PackedScene_i1nod"]
 
 [sub_resource type="Resource" id="Resource_47vte"]
 script = ExtResource("4_k66i0")
 item_name = "default"
 item_icon = ExtResource("3_vso2y")
-action_data = SubResource("Resource_1khap")
+item_model_prefab = SubResource("PackedScene_i1nod")
+action_data = SubResource("Resource_aj20k")
 metadata/_custom_type_script = "uid://dn048ilffx8s6"
 
 [node name="Pipe" type="RigidBody3D" unique_id=954526869]
