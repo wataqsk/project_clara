@@ -226,7 +226,7 @@ func drop_collectable(slot_id: int) -> void:
 		# If the object is a static body, it cant move or roll. 
 		# Simply place it on the ground, with a small height.
 		# increase to ensure there is no z-clipping with the floor.
-		instance.global_transform.origin = ground_pos + Vector3.UP * 0.0001
+													instance.global_transform.origin = ground_pos + Vector3.UP * 0.0001
 
 	# Rotate item randomly on Y for variety.
 	instance.rotation_degrees.y = randf() * 360

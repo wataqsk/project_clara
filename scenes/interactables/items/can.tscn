@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cwr5j8463foul" path="res://scenes/interactables/interaction_component.tscn" id="2_e8up3"]
 [ext_resource type="Script" uid="uid://ce2yqqwkf0j2p" path="res://components/inventory/actions/consumable_action.gd" id="2_tsnuh"]
 [ext_resource type="Script" uid="uid://dn048ilffx8s6" path="res://components/inventory/item_data.gd" id="3_aj20k"]
-[ext_resource type="Texture2D" uid="uid://dqy0jkrwojnq5" path="res://assets/600_clean_and_minimal_game_icons_ultimate_pack/2x/Apple.png" id="3_d1af2"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n2trt"]
 top_radius = 0.1
@@ -14,18 +13,16 @@ height = 0.3
 height = 0.3
 radius = 0.1
 
-[sub_resource type="Resource" id="Resource_g2eh1"]
+[sub_resource type="Resource" id="Resource_n2eef"]
 script = ExtResource("2_tsnuh")
 metadata/_custom_type_script = "uid://ce2yqqwkf0j2p"
 
-[sub_resource type="PackedScene" id="PackedScene_4kqyw"]
+[sub_resource type="PackedScene" id="PackedScene_55t8u"]
 
-[sub_resource type="Resource" id="Resource_qsbct"]
+[sub_resource type="Resource" id="Resource_oiwqq"]
 script = ExtResource("3_aj20k")
-item_name = "default"
-item_icon = ExtResource("3_d1af2")
-item_model_prefab = SubResource("PackedScene_4kqyw")
-action_data = SubResource("Resource_g2eh1")
+item_model_prefab = SubResource("PackedScene_55t8u")
+action_data = SubResource("Resource_n2eef")
 metadata/_custom_type_script = "uid://dn048ilffx8s6"
 
 [node name="Can" type="RigidBody3D" unique_id=1733740287]
@@ -39,4 +36,4 @@ shape = SubResource("CylinderShape3D_wqw67")
 [node name="InteractionComponent" parent="." unique_id=1577849604 node_paths=PackedStringArray("object_ref") instance=ExtResource("2_e8up3")]
 object_ref = NodePath("..")
 interaction_type = 1
-item_data = SubResource("Resource_qsbct")
+item_data = SubResource("Resource_oiwqq")

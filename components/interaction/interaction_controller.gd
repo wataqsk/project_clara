@@ -6,6 +6,8 @@ extends Node
 @onready var interaction_raycast: RayCast3D = %InteractionRaycast
 @onready var player_camera: Camera3D = %Camera3D
 @onready var interaction_hand: Marker3D = %InteractionHand
+@onready var note_hand: Marker3D = %NoteHand
+
 @onready var interactable_check: Area3D = $"../InteractableCheck"
 @onready var inventory_controller: Node = %InventoryController/CanvasLayer/InventoryUI
 
@@ -106,6 +108,9 @@ func _process(_delta: float) -> void:
 					# When picking up an item, connect its collected signal to this script.
 					if interaction_component.interaction_type == interaction_component.InteractionType.ITEM:
 						interaction_component.connect("item_collected", Callable(self, "_on_item_collected"))
+
+					if interaction_component.interaction_type == interaction_component.InteractionType.NOTE:
+						interaction_component.connect("note_collected", Callable(self, "_on_note_collected"))
 		else:
 			# Not looking at anything interactable, show the default reticle.
 			_show_default_reticle()
@@ -132,12 +137,31 @@ func _on_item_collected(item: Node) -> void:
 	_add_item_to_inventory(interaction_component.item_data)
 	item.queue_free()
 
+func _on_note_collected(note: Node3D) -> void:
+	note.get_parent().remove_child(note)
+	note_hand.add_child(note)
+	note.transform.origin = note_hand.transform.origin
+	note.position = Vector3(0.0, 0.0, 0.0)
+	note.rotation_degrees = Vector3(90, 10, 0)
+
 func _add_item_to_inventory(item_data: ItemData) -> void:
 	# Only forward valid item data to the inventory, silently ignore otherwise.
 	if item_data != null:
 		invent_on_item_collected.emit(item_data)
 		return
 	print("ItemData not found.")
+
+func on_item_equipped(item: Node3D) -> void:
+	if item.get_parent() != null:
+		item.get_parent().remove_child(item)
+	else:
+		var mesh = item.find_child("MeshInstance3D", true, false)
+		if mesh:
+			mesh.layers = 2
+		var col = item.find_child("CollisionShape3D", true, false)
+		if col:
+			col.get_parent().remove_child(col)
+			col.queue_free()
 
 func _on_body_entered(body: Node3D) -> void:
 	# Ignore the player itself entering the check radius.

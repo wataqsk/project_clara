@@ -7,7 +7,8 @@ extends Node
 ## Defines how the object behaves when the player interacts with it.
 enum InteractionType {
 	DEFAULT, ## placeholder with no behavior.
-	ITEM     ## can be picked up by the player.
+	ITEM,     ## can be picked up by the player.
+	NOTE
 }
 
 @export_category("Interaction")
@@ -35,6 +36,7 @@ var player_hand: Marker3D
 
 # Signals
 signal item_collected(item: Node)
+signal note_collected(node: Node3D)
 
 # Called once when the player first initiates an interaction with this object.
 func pre_interact(interaction_hand: Marker3D) -> void:
@@ -53,6 +55,8 @@ func interact() -> void:
 			_default_interact()
 		InteractionType.ITEM:
 			_collect_item()
+		InteractionType.NOTE:
+			_collect_note()
 
 # Called once when the player initiates an auxiliary interaction with this object.
 func alt_interact() -> void:
@@ -101,3 +105,10 @@ func _default_throw() -> void:
 func _collect_item() -> void:
 	# Notify the controller the item was collected.
 	emit_signal("item_collected", get_parent())
+
+func _collect_note() -> void:
+	var col = get_parent().find_child("CollisionShape3D", true, false)
+	if col:
+		col.get_parent().remove_child(col)
+		col.queue_free()
+	emit_signal("note_collected", get_parent())

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bg75hsgf0o8rs"]
+
+[ext_resource type="Texture2D" uid="uid://beacnqq8sm7te" path="res://assets/classic_64_asset_library/Papers/Materials/paper_log_1.png" id="1_bb7df"]
+[ext_resource type="PackedScene" uid="uid://cwr5j8463foul" path="res://scenes/interactables/interaction_component.tscn" id="2_2na1f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_s1fef"]
+size = Vector2(0.35, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khhxn"]
+albedo_texture = ExtResource("1_bb7df")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qsuaf"]
+size = Vector3(0.45, 0.05, 0.6)
+
+[node name="Note" type="StaticBody3D" unique_id=273813102]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=782910807]
+layers = 2
+mesh = SubResource("PlaneMesh_s1fef")
+surface_material_override/0 = SubResource("StandardMaterial3D_khhxn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1774122937]
+shape = SubResource("BoxShape3D_qsuaf")
+
+[node name="InteractionComponent" parent="." unique_id=1577849604 node_paths=PackedStringArray("object_ref") instance=ExtResource("2_2na1f")]
+object_ref = NodePath("..")
+interaction_type = 2

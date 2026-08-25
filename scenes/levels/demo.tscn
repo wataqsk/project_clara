@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cb8dmciubuxoe" path="res://scenes/characters/player/player.tscn" id="3_vl7ud"]
 [ext_resource type="PackedScene" uid="uid://cfrrr1t87qxfh" path="res://scenes/interactables/default/cube_5kg.tscn" id="4_bdnxh"]
 [ext_resource type="PackedScene" uid="uid://dsomuu8s5orea" path="res://scenes/interactables/items/pipe.tscn" id="6_y87cy"]
+[ext_resource type="PackedScene" uid="uid://bg75hsgf0o8rs" path="res://scenes/interactables/items/note.tscn" id="7_annih"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n2trt"]
 size = Vector3(80, 0.01, 80)
@@ -62,15 +63,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2, 1
 [node name="Pipe3" parent="Objects" unique_id=870144062 instance=ExtResource("6_y87cy")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 1.65, 1.15, 6)
 
-[node name="Pipe4" parent="Objects" unique_id=68803553 instance=ExtResource("6_y87cy")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.6086832, 1.15, 6)
-
-[node name="Pipe5" parent="Objects" unique_id=218973896 instance=ExtResource("6_y87cy")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.9586831, 1.1500001, 6)
-
-[node name="Pipe6" parent="Objects" unique_id=990389728 instance=ExtResource("6_y87cy")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.308683, 1.15, 6)
-
 [node name="Cube_1kg2" parent="Objects" unique_id=1173868924 instance=ExtResource("3_qg7s5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 6)
 
@@ -83,15 +75,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 8)
 [node name="Cube_5Kg" parent="Objects" unique_id=882854538 instance=ExtResource("4_bdnxh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, 8)
 
-[node name="Can" parent="Objects" unique_id=1733740287 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.25, 8)
-
-[node name="Can2" parent="Objects" unique_id=866352292 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 1.25, 8)
-
-[node name="Can3" parent="Objects" unique_id=90934525 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 1.25, 8)
-
 [node name="Can4" parent="Objects" unique_id=771847468 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.25, 8)
 
@@ -100,15 +83,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.25, 8)
 
 [node name="Can6" parent="Objects" unique_id=347923098 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.25, 8)
-
-[node name="Can7" parent="Objects" unique_id=1038515094 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.25, 8.3)
-
-[node name="Can8" parent="Objects" unique_id=301583523 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 1.25, 8.3)
-
-[node name="Can9" parent="Objects" unique_id=192007121 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 1.25, 8.3)
 
 [node name="Can10" parent="Objects" unique_id=1158913748 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.25, 8.3)
@@ -119,15 +93,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.25, 8.3)
 [node name="Can12" parent="Objects" unique_id=2034536413 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.25, 8.3)
 
-[node name="Can13" parent="Objects" unique_id=1100054847 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.25, 7.7)
-
-[node name="Can14" parent="Objects" unique_id=262272914 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 1.25, 7.7)
-
-[node name="Can15" parent="Objects" unique_id=857881332 instance=ExtResource("3_msxrg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 1.25, 7.7)
-
 [node name="Can16" parent="Objects" unique_id=244653050 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.25, 7.7)
 
@@ -136,3 +101,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.25, 7.7)
 
 [node name="Can18" parent="Objects" unique_id=816217650 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.25, 7.7)
+
+[node name="Note" parent="." unique_id=273813102 instance=ExtResource("7_annih")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.01, 8)
