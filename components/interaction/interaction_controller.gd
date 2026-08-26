@@ -7,6 +7,8 @@ extends Node
 @onready var player_camera: Camera3D = %Camera3D
 @onready var interaction_hand: Marker3D = %InteractionHand
 @onready var note_hand: Marker3D = %NoteHand
+@onready var notes_overlay: Control = %NotesOverlay
+@onready var note_content: RichTextLabel = %NoteContent
 
 @onready var interactable_check: Area3D = $"../InteractableCheck"
 @onready var inventory_controller: Node = %InventoryController/CanvasLayer/InventoryUI
@@ -20,6 +22,7 @@ extends Node
 var current_object: Object = null
 var last_potential_object: Object = null
 var interaction_component: Node = null
+var _is_note_overlay_display: bool = false
 
 signal invent_on_item_collected(item)
 
@@ -115,6 +118,14 @@ func _process(_delta: float) -> void:
 			# Not looking at anything interactable, show the default reticle.
 			_show_default_reticle()
 
+func _input(event: InputEvent) -> void:
+	if _is_note_overlay_display and event.is_action_just_pressed("left_click"):
+		notes_overlay.visible = false
+		_is_note_overlay_display = false
+		var children = note_hand.get_children()
+		for child in children:
+			child.queue_free()
+
 # TO-DO: Refactor into an enum-based method to avoid repetition.
 func _show_default_reticle() -> void:
 	default_reticle.visible = true
@@ -142,7 +153,12 @@ func _on_note_collected(note: Node3D) -> void:
 	note_hand.add_child(note)
 	note.transform.origin = note_hand.transform.origin
 	note.position = Vector3(0.0, 0.0, 0.0)
-	note.rotation_degrees = Vector3(90, 10, 0)
+	note.rotation_degrees = Vector3	(90, 10, 0)
+	notes_overlay.visible = true
+	_is_note_overlay_display = true
+	var ic = note.get_node_or_null("InteractionComponent")
+	note_content.bbcode_enabled = true
+	note_content.text = ic.content
 
 func _add_item_to_inventory(item_data: ItemData) -> void:
 	# Only forward valid item data to the inventory, silently ignore otherwise.

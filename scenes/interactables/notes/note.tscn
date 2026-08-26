@@ -25,3 +25,4 @@ shape = SubResource("BoxShape3D_qsuaf")
 [node name="InteractionComponent" parent="." unique_id=1577849604 node_paths=PackedStringArray("object_ref") instance=ExtResource("2_2na1f")]
 object_ref = NodePath("..")
 interaction_type = 2
+content = "Test"

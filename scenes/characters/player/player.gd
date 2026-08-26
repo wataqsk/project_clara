@@ -37,6 +37,8 @@ extends CharacterBody3D
 ## Multiplies character's gravity while falling.
 @export_range(1.0, 10.0, 0.5, "suffix:x") var fall_multiplier: float = 3.0
 
+@export var note_sway_amount: float = 0.1
+
 var _camera_input_direction: Vector2 = Vector2.ZERO
 ## Current movement direction, read by state machine.
 var move_direction: Vector3 = Vector3.ZERO	
@@ -55,6 +57,7 @@ var state_machine: AnimationNodeStateMachinePlayback
 @onready var _interaction_raycast: RayCast3D = %InteractionRaycast
 @onready var _inventory_controller: Node = %InventoryController/CanvasLayer/InventoryUI
 @onready var _skin: Node3D = %Mannequin
+@onready var note_hand: Marker3D = %NoteHand
 
 func _ready() -> void:
 	state_machine = $AnimationTree.get("parameters/Movement/playback") as AnimationNodeStateMachinePlayback
@@ -93,6 +96,7 @@ func _physics_process(delta: float) -> void:
 	_update_jump(delta)
 	_update_gravity(delta)
 	move_and_slide()
+	_note_tilt_and_sway(move_direction, delta)
 
 func _update_camera(delta: float) -> void:
 	_camera_pivot.rotation.x += _camera_input_direction.y * delta
@@ -166,3 +170,8 @@ func _update_movement(delta: float) -> void:
 	# Change to FORWARD if skin was imported facing +Z.
 	var target_angle := Vector3.BACK.signed_angle_to(_last_move_direction, Vector3.UP)
 	_skin.rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
+
+func _note_tilt_and_sway(move_direction: Vector3, delta: float) -> void:
+	if note_hand:
+		note_hand.rotation.x = lerp(note_hand.rotation.x, move_direction.y * note_sway_amount, 10*delta)
+		note_hand.rotation.z = lerp(note_hand.rotation.z, move_direction.x * note_sway_amount, 10*delta)

@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://ddp3ll6essog7" path="res://scenes/characters/player/states/falling.gd" id="9_42irl"]
 [ext_resource type="Texture2D" uid="uid://b2vrrenf0an81" path="res://assets/cursor_pixel_pack/Tiles/tile_0136.png" id="9_ykrpk"]
 [ext_resource type="Script" uid="uid://uygcpxwbe8cu" path="res://scenes/characters/player/states/landing.gd" id="10_3xnwo"]
+[ext_resource type="Shader" uid="uid://dnrey4atl7b67" path="res://shaders/fade.gdshader" id="11_4kqyw"]
 [ext_resource type="PackedScene" uid="uid://b5kghc5aau0lx" path="res://components/inventory/inventory_controller.tscn" id="16_i1nod"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x0jl3"]
@@ -113,6 +114,12 @@ nodes/Movement/node = SubResource("AnimationNodeStateMachine_x0jl3")
 nodes/Movement/position = Vector2(-133.33334, 155.55556)
 node_connections = [&"output", 0, &"Movement"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u3uvi"]
+shader = ExtResource("11_4kqyw")
+shader_parameter/rect_width_px = 960.0
+shader_parameter/fade_width_px = 240.0
+shader_parameter/fade_strength = 0.70000003325
+
 [node name="Player" type="CharacterBody3D" unique_id=1561012246]
 script = ExtResource("1_x0jl3")
 
@@ -156,7 +163,6 @@ render_target_update_mode = 4
 [node name="NoteCamera" type="Camera3D" parent="CameraPivot/SubViewportContainer/SubViewport" unique_id=989709867]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.5, 1.5, 0)
 cull_mask = 2
-fov = 90.0
 
 [node name="NoteHand" type="Marker3D" parent="CameraPivot/SubViewportContainer/SubViewport/NoteCamera" unique_id=2113738611]
 unique_name_in_owner = true
@@ -227,6 +233,45 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("9_ykrpk")
 stretch_mode = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GUI" unique_id=382001805]
+
+[node name="NotesOverlay" type="Control" parent="GUI/CanvasLayer" unique_id=891642089]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackOverlay" type="ColorRect" parent="GUI/CanvasLayer/NotesOverlay" unique_id=709161183]
+material = SubResource("ShaderMaterial_u3uvi")
+layout_mode = 0
+offset_left = 960.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="GUI/CanvasLayer/NotesOverlay" unique_id=232075498]
+anchors_preset = 0
+offset_left = 1200.0
+offset_top = 20.0
+offset_right = 1900.0
+offset_bottom = 1060.0
+
+[node name="NoteContent" type="RichTextLabel" parent="GUI/CanvasLayer/NotesOverlay/Control" unique_id=1877607702]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Test Test"
+fit_content = true
+scroll_active = false
 
 [node name="StateMachine" type="Node" parent="." unique_id=757438713 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_qd3e3")

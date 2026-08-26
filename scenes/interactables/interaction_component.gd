@@ -19,6 +19,7 @@ enum InteractionType {
 @export var interaction_type: InteractionType = InteractionType.DEFAULT
 ## The item this object represents when picked up.
 @export var item_data: ItemData
+@export var content: String
 
 @export_group("Pickup Properties")
 ## How strongly the object is pulled toward the player's hand.
@@ -37,6 +38,11 @@ var player_hand: Marker3D
 # Signals
 signal item_collected(item: Node)
 signal note_collected(node: Node3D)
+
+func _ready() -> void:
+	match interaction_type:
+		InteractionType.NOTE:
+			content.replace("\\n", "\n")
 
 # Called once when the player first initiates an interaction with this object.
 func pre_interact(interaction_hand: Marker3D) -> void:

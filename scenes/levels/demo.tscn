@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cb8dmciubuxoe" path="res://scenes/characters/player/player.tscn" id="3_vl7ud"]
 [ext_resource type="PackedScene" uid="uid://cfrrr1t87qxfh" path="res://scenes/interactables/default/cube_5kg.tscn" id="4_bdnxh"]
 [ext_resource type="PackedScene" uid="uid://dsomuu8s5orea" path="res://scenes/interactables/items/pipe.tscn" id="6_y87cy"]
-[ext_resource type="PackedScene" uid="uid://bg75hsgf0o8rs" path="res://scenes/interactables/items/note.tscn" id="7_annih"]
+[ext_resource type="PackedScene" uid="uid://bg75hsgf0o8rs" path="res://scenes/interactables/notes/note.tscn" id="7_annih"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n2trt"]
 size = Vector3(80, 0.01, 80)
@@ -102,5 +102,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.25, 7.7)
 [node name="Can18" parent="Objects" unique_id=816217650 instance=ExtResource("3_msxrg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 1.25, 7.7)
 
-[node name="Note" parent="." unique_id=273813102 instance=ExtResource("7_annih")]
+[node name="Note" parent="Objects" unique_id=273813102 instance=ExtResource("7_annih")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.01, 8)
