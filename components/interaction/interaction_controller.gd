@@ -1,11 +1,13 @@
 # This script handles player interaction, detecting and triggering interactions.
 # Object behavior and properties are defined in InteractionComponent, not here.
+class_name InteractionComponent
 extends Node
 
 @onready var interaction_controller: Node = %InteractionController
 @onready var interaction_raycast: RayCast3D = %InteractionRaycast
 @onready var player_camera: Camera3D = %Camera3D
 @onready var interaction_hand: Marker3D = %InteractionHand
+@onready var item_hand: Marker3D = %ItemHand
 @onready var note_hand: Marker3D = %NoteHand
 @onready var notes_overlay: Control = %NotesOverlay
 @onready var note_content: RichTextLabel = %NoteContent
@@ -23,6 +25,9 @@ var current_object: Object = null
 var last_potential_object: Object = null
 var interaction_component: Node = null
 var _is_note_overlay_display: bool = false
+var item_equipped: bool = false
+var equipped_item: Node3D
+var equipped_item_ic: InteractionComponent
 
 signal invent_on_item_collected(item)
 
@@ -168,6 +173,13 @@ func _add_item_to_inventory(item_data: ItemData) -> void:
 	print("ItemData not found.")
 
 func on_item_equipped(item: Node3D) -> void:
+	
+	if item is RigidBody3D:
+		item.freeze = true
+		item.linear_velocity = Vector3.ZERO
+		item.angular_velocity = Vector3.ZERO
+		item.gravity_scale = 0.0
+
 	if item.get_parent() != null:
 		item.get_parent().remove_child(item)
 	else:
@@ -178,6 +190,23 @@ func on_item_equipped(item: Node3D) -> void:
 		if col:
 			col.get_parent().remove_child(col)
 			col.queue_free()
+
+	item_hand.add_child(item)
+	item.transform.origin = item_hand.transform.origin
+	item.position = Vector3(0.0, 0.0, 0.0)
+	item.rotation_degress = Vector3(0, 180, -90)
+	
+	item_equipped = true
+	equipped_item = item
+	equipped_item_ic = find_interaction_component(equipped_item)
+
+func find_interaction_component(node: Node) -> InteractionComponent:
+	while node:
+		for child in node.get_children():
+			if child is InteractionComponent:
+				return child
+		node = node.get_parent()
+	return null
 
 func _on_body_entered(body: Node3D) -> void:
 	# Ignore the player itself entering the check radius.

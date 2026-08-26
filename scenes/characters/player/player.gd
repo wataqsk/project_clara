@@ -57,6 +57,7 @@ var state_machine: AnimationNodeStateMachinePlayback
 @onready var _interaction_raycast: RayCast3D = %InteractionRaycast
 @onready var _inventory_controller: Node = %InventoryController/CanvasLayer/InventoryUI
 @onready var _skin: Node3D = %Mannequin
+@onready var item_hand: Marker3D = %ItemHand
 @onready var note_hand: Marker3D = %NoteHand
 
 func _ready() -> void:
@@ -175,3 +176,7 @@ func _note_tilt_and_sway(move_direction: Vector3, delta: float) -> void:
 	if note_hand:
 		note_hand.rotation.x = lerp(note_hand.rotation.x, move_direction.y * note_sway_amount, 10*delta)
 		note_hand.rotation.z = lerp(note_hand.rotation.z, move_direction.x * note_sway_amount, 10*delta)
+
+	if item_hand:
+		item_hand.rotation.x = lerp(item_hand.rotation.x, move_direction.y * note_sway_amount, 10*delta)
+		item_hand.rotation.z = lerp(item_hand.rotation.z, move_direction.x * note_sway_amount, 10*delta)

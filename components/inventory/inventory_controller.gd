@@ -76,7 +76,7 @@ func _on_item_double_clicked(slot_id: int) -> void:
 			# use_collectable(slot_id)
 			print("Use Collectable")
 		ActionData.ActionType.EQUIPPABLE:
-			# equip_collectable(slot_id)
+			equip_collectable(slot_id)
 			print("Equip Collectable")
 		ActionData.ActionType.INSPECTABLE:
 			# inspect_collectable(slot_id)
@@ -124,13 +124,11 @@ func _on_context_menu_selected(context_menu_choice: int) -> void:
 	match _get_item_action_type(slot.slot_data): 
 		ActionData.ActionType.CONSUMABLE:
 			match context_menu_choice:
-				0:  # use_collectable(slot_id)
-					print("Use collectable.")
+				0: use_collectable(slot_id)
 				1: drop_collectable(slot_id)
 		ActionData.ActionType.EQUIPPABLE:
 			match context_menu_choice:
-				0: # equip_collectable(slot_id)
-					print("Equip collectable.")
+				0: equip_collectable(slot_id)
 				1: drop_collectable(slot_id)
 		ActionData.ActionType.INSPECTABLE:
 			match context_menu_choice:
@@ -226,7 +224,7 @@ func drop_collectable(slot_id: int) -> void:
 		# If the object is a static body, it cant move or roll. 
 		# Simply place it on the ground, with a small height.
 		# increase to ensure there is no z-clipping with the floor.
-													instance.global_transform.origin = ground_pos + Vector3.UP * 0.0001
+		instance.global_transform.origin = ground_pos + Vector3.UP * 0.0001
 
 	# Rotate item randomly on Y for variety.
 	instance.rotation_degrees.y = randf() * 360
@@ -234,6 +232,15 @@ func drop_collectable(slot_id: int) -> void:
 	# Collectable has been used, the inventory is no longer full.
 	inventory_full = false
 	# Make the slot empty again.
+	slot.fill_slot(null)
+
+func equip_collectable(slot_id: int) -> void:
+	var slot: InventorySlot = inventory_slots[slot_id]
+	if slot.slot_data == null:
+		return
+
+	var instance = slot.slot_data.item_model_prefab.instantiate() as Node3D
+	interaction_controller.on_item_equipped(instance)
 	slot.fill_slot(null)
 
 ## Helper method to return what type of action this item is expected to perform
